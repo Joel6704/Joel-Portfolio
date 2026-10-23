@@ -1,0 +1,389 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Oswald:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Alex+Brush&display=swap');
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  :root {
+    --bg-main: #030712;
+    --bg-secondary: #060D22;
+    --bg-navy-deep: #04091A;
+    --accent-blue: #008CFF;
+    --accent-cyan: #00E5FF;
+    --accent-navy: #0047BA;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --divider: rgba(0, 140, 255, 0.2);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #030712;
+    color: #F8FAFC;
+  }
+
+  body {
+    background-color: #030712;
+    color: #F8FAFC;
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Custom electric royal blue & cyan scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #030712;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #008CFF;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00E5FF;
+  }
+
+  /* Typography base */
+  h1,
+  h2,
+  h3 {
+    font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  }
+}
+
+@layer utilities {
+  /* ── Font utilities ── */
+  .font-display {
+    font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+  }
+
+  .font-heading {
+    font-family: 'Oswald', sans-serif;
+  }
+
+  .font-body {
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  }
+
+  .font-signature {
+    font-family: 'Alex Brush', cursive;
+  }
+
+  /* ── Background helpers ── */
+  .bg-main {
+    background-color: #060B18;
+  }
+
+  .bg-secondary {
+    background-color: #0A1228;
+  }
+
+  /* ── Section dividers ── */
+  .border-divider {
+    border-color: #172554;
+  }
+
+  /* ── Hero editorial gradient overlay ── */
+  .hero-editorial-overlay {
+    background: linear-gradient(135deg,
+        rgba(6, 11, 24, 0.98) 0%,
+        rgba(10, 18, 40, 0.92) 50%,
+        rgba(6, 11, 24, 0.95) 100%);
+  }
+
+  /* ── Electric blue ambient glow ── */
+  .red-ambient-glow,
+  .blue-ambient-glow {
+    background: radial-gradient(ellipse at 50% 0%,
+        rgba(0, 102, 255, 0.22) 0%,
+        rgba(10, 18, 40, 0.08) 40%,
+        transparent 70%);
+  }
+
+  /* ── Navbar glass ── */
+  .glass-nav-dark {
+    background: rgba(6, 11, 24, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* ── Cards ── */
+  .card-editorial {
+    background-color: #0A1228;
+    border: 1px solid rgba(0, 102, 255, 0.22);
+    box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.75);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card-editorial:hover {
+    border-color: rgba(0, 102, 255, 0.6);
+    box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.85),
+      0 0 25px rgba(0, 102, 255, 0.22);
+    transform: translateY(-3px);
+  }
+
+  /* ── Royal blue accent buttons ── */
+  .btn-red,
+  .btn-blue {
+    background-color: #0066FF;
+    color: #FFFFFF;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 20px rgba(0, 102, 255, 0.35);
+  }
+
+  .btn-red:hover,
+  .btn-blue:hover {
+    background-color: #0052CC;
+    box-shadow: 0 0 30px rgba(0, 102, 255, 0.6);
+    transform: translateY(-1px);
+  }
+
+  /* ── Outline ghost button ── */
+  .btn-outline-red,
+  .btn-outline-blue {
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    color: #F8FAFC;
+    background: rgba(255, 255, 255, 0.04);
+    transition: all 0.25s ease;
+  }
+
+  .btn-outline-red:hover,
+  .btn-outline-blue:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 22px rgba(0, 102, 255, 0.25);
+    transform: translateY(-1px);
+  }
+
+  /* ── Section label tag ── */
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.95rem;
+    border: 1px solid rgba(0, 102, 255, 0.35);
+    background: rgba(0, 102, 255, 0.08);
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #38BDF8;
+  }
+
+  /* ── Blue thin accent line ── */
+  .accent-line {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, #0066FF 0%, rgba(0, 102, 255, 0.2) 100%);
+    display: block;
+  }
+
+  /* ── Timeline vertical track ── */
+  .timeline-track {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, #0066FF, #172554, transparent);
+  }
+
+  /* ── Skills icon wrapper ── */
+  .skill-icon-box {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid rgba(0, 102, 255, 0.35);
+    background: rgba(0, 102, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #38BDF8;
+  }
+
+  /* ── Tool card ── */
+  .tool-card {
+    border: 1px solid rgba(0, 102, 255, 0.2);
+    background: rgba(10, 18, 40, 0.6);
+    padding: 0.75rem 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #CBD5E1;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+  }
+
+  .tool-card:hover {
+    border-color: #0066FF;
+    color: #FFFFFF;
+    background: rgba(0, 102, 255, 0.14);
+  }
+
+  /* ── Portfolio huge display heading ── */
+  .hero-display-heading {
+    font-family: 'Bodoni Moda', 'Playfair Display', Georgia, serif;
+    font-weight: 800;
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    color: #0066FF;
+    text-shadow: 0 0 60px rgba(0, 102, 255, 0.4);
+  }
+
+  /* ── Condensed uppercase section heading ── */
+  .section-heading-condensed {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── Hero Title Motion Class ── */
+  .hero-title-motion {
+    display: inline-block;
+    width: 100%;
+    background: linear-gradient(90deg,
+        #0047BA 0%,
+        #0066FF 20%,
+        #38BDF8 45%,
+        #93C5FD 50%,
+        #38BDF8 55%,
+        #0066FF 80%,
+        #0047BA 100%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: heroTitleFloat 6s ease-in-out infinite, heroTitleShimmer 9s ease-in-out infinite, heroGlowPulse 4s ease-in-out infinite;
+    will-change: transform, background-position, filter;
+  }
+
+  /* ── Marquee Seamless Loop Class ── */
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 32s linear infinite;
+  }
+
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  /* ── Neon light sweep for DRIVE REVENUE ── */
+  .text-revenue-sweep {
+    background: linear-gradient(
+      105deg,
+      #008CFF 0%,
+      #00E5FF 30%,
+      #E0F7FF 50%,
+      #00E5FF 70%,
+      #008CFF 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: lightSweep 4.5s linear infinite;
+    filter: drop-shadow(0 0 25px rgba(0, 140, 255, 0.55));
+  }
+
+  /* ── Glassmorphism Neon Card ── */
+  .glass-neon-card {
+    background: rgba(6, 13, 34, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 140, 255, 0.28);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 140, 255, 0.12);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-neon-card:hover {
+    border-color: rgba(0, 229, 255, 0.6);
+    box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 229, 255, 0.25);
+    transform: translateY(-2px);
+  }
+
+  /* ── Neon Outline Glow Trace ── */
+  .animate-neon-trace {
+    stroke-dasharray: 250 650;
+    animation: neonDash 10s linear infinite;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Top-level Keyframe Animations
+   (Defined outside @layer utilities for CSS spec & IDE compliance)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Hero Title Float ── */
+@keyframes heroTitleFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* ── Hero Title Shimmer ── */
+@keyframes heroTitleShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ── Hero Glow Pulse ── */
+@keyframes heroGlowPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 35px rgba(0, 102, 255, 0.45)) drop-shadow(0 0 70px rgba(0, 71, 186, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 55px rgba(56, 189, 248, 0.65)) drop-shadow(0 0 95px rgba(0, 102, 255, 0.45));
+  }
+}
+
+/* ── Marquee Seamless Loop ── */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Neon light sweep for DRIVE REVENUE ── */
+@keyframes lightSweep {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ── Neon Outline Glow Trace ── */
+@keyframes neonDash {
+  0% {
+    stroke-dashoffset: 1200;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
