@@ -48,15 +48,15 @@ export const HeroHeadline: React.FC<HeroHeadlineProps> = ({ line1, line2, line3 
         <span className="block">{line2}</span>
       </motion.div>
 
-      {/* Line 3 with electric blue to cyan gradient and light sweep */}
+      {/* Line 3 with animated electric blue-to-purple gradient typography */}
       <motion.div variants={lineVariants} className="overflow-hidden pt-1">
-        <span className="relative inline-block italic font-black text-revenue-sweep drop-shadow-[0_0_35px_rgba(0,140,255,0.6)]">
+        <span className="relative inline-block italic font-black text-gradient-electric">
           {line3}
-          {/* Subtle neon glow beam underneath */}
+          {/* Subtle electric blue and purple neon glow beam underneath */}
           <span
             className="absolute -inset-x-2 -bottom-1 h-3 pointer-events-none opacity-40 blur-lg rounded-full"
             style={{
-              background: 'linear-gradient(90deg, #008CFF, #00E5FF)',
+              background: 'linear-gradient(90deg, #008CFF, #A855F7, #00E5FF)',
             }}
             aria-hidden="true"
           />
@@ -65,3 +65,5 @@ export const HeroHeadline: React.FC<HeroHeadlineProps> = ({ line1, line2, line3 
     </motion.h1>
   );
 };
+
+export default HeroHeadline;

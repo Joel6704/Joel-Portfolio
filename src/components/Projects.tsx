@@ -3,6 +3,7 @@ import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { ExternalLink, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import { projects } from '../data/portfolioData';
 import type { Project } from '../types';
+import { Magnetic } from './common/Magnetic';
 
 interface ProjectsProps {
   onSelectProject?: (project: Project) => void;
@@ -126,15 +127,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 
           {/* Card CTA Button (Consistent with Card URL) */}
           <div className="pt-2">
-            <span
-              className="w-full py-3 px-4 rounded-lg font-heading text-xs sm:text-sm font-semibold tracking-wider uppercase text-white flex items-center justify-center gap-2 shadow-lg transition-all duration-300 bg-gradient-to-r from-[#0066FF] to-[#0047BA] group-hover:from-amber-500 group-hover:to-amber-600 group-hover:shadow-[0_4px_25px_rgba(245,158,11,0.4)]"
-            >
-              <span>{ctaLabel}</span>
-              <ExternalLink
-                size={14}
-                className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
-              />
-            </span>
+            <Magnetic strength={0.2} maxOffset={8} className="w-full">
+              <span
+                className="w-full py-3 px-4 rounded-lg font-heading text-xs sm:text-sm font-semibold tracking-wider uppercase text-white flex items-center justify-center gap-2 shadow-lg transition-all duration-300 bg-gradient-to-r from-[#0066FF] to-[#0047BA] group-hover:from-amber-500 group-hover:to-amber-600 group-hover:shadow-[0_4px_25px_rgba(245,158,11,0.4)]"
+              >
+                <span>{ctaLabel}</span>
+                <ExternalLink
+                  size={14}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300"
+                />
+              </span>
+            </Magnetic>
           </div>
         </div>
       </a>
@@ -265,24 +268,26 @@ export const Projects: React.FC<ProjectsProps> = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-12 sm:mt-14 text-center flex justify-center"
           >
-            <button
-              type="button"
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-[0.16em] uppercase text-white border border-amber-500/40 bg-[#0A1228] hover:border-amber-400 hover:bg-[#0E1A3D] hover:shadow-[0_0_30px_rgba(245,158,11,0.28)] transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
-            >
-              <span>{isExpanded ? 'SHOW LESS' : 'VIEW MORE PROJECTS'}</span>
-              {isExpanded ? (
-                <ChevronUp
-                  size={16}
-                  className="text-amber-400 group-hover:-translate-y-0.5 transition-transform"
-                />
-              ) : (
-                <ChevronDown
-                  size={16}
-                  className="text-amber-400 group-hover:translate-y-0.5 transition-transform"
-                />
-              )}
-            </button>
+            <Magnetic strength={0.25} maxOffset={10}>
+              <button
+                type="button"
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-heading text-xs sm:text-sm font-semibold tracking-[0.16em] uppercase text-white border border-amber-500/40 bg-[#0A1228] hover:border-amber-400 hover:bg-[#0E1A3D] hover:shadow-[0_0_30px_rgba(245,158,11,0.28)] transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+              >
+                <span>{isExpanded ? 'SHOW LESS' : 'VIEW MORE PROJECTS'}</span>
+                {isExpanded ? (
+                  <ChevronUp
+                    size={16}
+                    className="text-amber-400 group-hover:-translate-y-0.5 transition-transform"
+                  />
+                ) : (
+                  <ChevronDown
+                    size={16}
+                    className="text-amber-400 group-hover:translate-y-0.5 transition-transform"
+                  />
+                )}
+              </button>
+            </Magnetic>
           </motion.div>
         )}
 

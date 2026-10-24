@@ -316,12 +316,87 @@
     stroke-dasharray: 250 650;
     animation: neonDash 10s linear infinite;
   }
+
+  /* ── Flowing Electric-Blue to Purple Animated Typography ── */
+  .text-gradient-electric {
+    background: linear-gradient(
+      120deg,
+      #00E5FF 0%,
+      #008CFF 25%,
+      #8B5CF6 50%,
+      #C084FC 72%,
+      #008CFF 88%,
+      #00E5FF 100%
+    );
+    background-size: 260% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientTypography 7s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(0, 140, 255, 0.45)) drop-shadow(0 0 38px rgba(139, 92, 246, 0.3));
+    will-change: background-position;
+  }
+
+  /* ── Flowing Electric Shimmer for Intro ── */
+  .text-gradient-intro {
+    background: linear-gradient(
+      115deg,
+      #00E5FF 0%,
+      #008CFF 22%,
+      #8B5CF6 48%,
+      #D946EF 70%,
+      #00E5FF 100%
+    );
+    background-size: 280% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientTypography 6s ease-in-out infinite;
+    filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.55)) drop-shadow(0 0 50px rgba(139, 92, 246, 0.4));
+  }
+
+  /* ── Typing Blinking Cursor ── */
+  .typing-cursor {
+    display: inline-block;
+    width: 3.5px;
+    height: 1.05em;
+    vertical-align: -0.12em;
+    background: linear-gradient(to bottom, #00E5FF, #A855F7);
+    margin-left: 6px;
+    animation: cursorBlink 0.85s steps(2, start) infinite;
+    box-shadow: 0 0 10px #00E5FF, 0 0 20px #A855F7;
+    border-radius: 2px;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════
    Top-level Keyframe Animations
    (Defined outside @layer utilities for CSS spec & IDE compliance)
    ═══════════════════════════════════════════════════════════════ */
+
+/* ── Flowing Gradient Typography Motion ── */
+@keyframes gradientTypography {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ── Typewriter Cursor Blink ── */
+@keyframes cursorBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
 
 /* ── Hero Title Float ── */
 @keyframes heroTitleFloat {
@@ -385,5 +460,21 @@
   }
   100% {
     stroke-dashoffset: 0;
+  }
+}
+
+/* ── Reduced Motion Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient-electric,
+  .text-gradient-intro,
+  .hero-title-motion,
+  .text-revenue-sweep,
+  .animate-neon-trace {
+    animation: none !important;
+    background-position: 50% 50% !important;
+  }
+  .typing-cursor {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }

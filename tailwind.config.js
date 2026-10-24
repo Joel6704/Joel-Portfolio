@@ -82,6 +82,7 @@ export default {
         display: ['"Bodoni Moda"', '"Playfair Display"', 'Georgia', 'serif'],
         heading: ['"Oswald"', 'sans-serif'],
         space: ['"Space Grotesk"', 'sans-serif'],
+        sora: ['"Sora"', 'sans-serif'],
         body: ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', 'sans-serif'],
         sans: ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', 'sans-serif'],
         signature: ['"Alex Brush"', 'cursive'],
