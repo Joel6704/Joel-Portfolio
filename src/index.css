@@ -337,7 +337,7 @@
     will-change: background-position;
   }
 
-  /* ── Flowing Electric Shimmer for Intro ── */
+  /* ── Flowing Electric Shimmer for Intro Name ── */
   .text-gradient-intro {
     background: linear-gradient(
       115deg,
@@ -353,6 +353,44 @@
     -webkit-text-fill-color: transparent;
     animation: gradientTypography 6s ease-in-out infinite;
     filter: drop-shadow(0 0 25px rgba(0, 229, 255, 0.55)) drop-shadow(0 0 50px rgba(139, 92, 246, 0.4));
+  }
+
+  /* ── Luminous Electric Cyan Shimmer for Intro WELCOME ── */
+  .text-gradient-welcome {
+    background: linear-gradient(
+      105deg,
+      #00E5FF 0%,
+      #38BDF8 25%,
+      #FFFFFF 48%,
+      #00E5FF 70%,
+      #008CFF 100%
+    );
+    background-size: 240% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientTypography 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 22px rgba(0, 229, 255, 0.7)) drop-shadow(0 0 45px rgba(0, 140, 255, 0.45));
+    will-change: background-position;
+  }
+
+  /* ── Glowing Purple & Cyan Shimmer for Intro PORTFOLIO ── */
+  .text-gradient-portfolio {
+    background: linear-gradient(
+      115deg,
+      #C084FC 0%,
+      #A855F7 25%,
+      #00E5FF 52%,
+      #818CF8 75%,
+      #C084FC 100%
+    );
+    background-size: 260% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientTypography 5.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 22px rgba(168, 85, 247, 0.65)) drop-shadow(0 0 45px rgba(0, 229, 255, 0.4));
+    will-change: background-position;
   }
 
   /* ── Typing Blinking Cursor ── */

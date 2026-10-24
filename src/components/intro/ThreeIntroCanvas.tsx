@@ -282,8 +282,8 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
       cursorLight.position.x = mX * 7.0;
       cursorLight.position.y = mY * 4.5;
 
-      // Cinematic Camera Motion: Slow push-in drift from 9.8 to ~7.4
-      let targetCamZ = prefersReducedMotion ? 8.2 : 9.8 - Math.min(elapsedTime * 0.28, 2.4);
+      // Cinematic Camera Motion: Smooth push-in drift from 9.8 to ~7.4
+      let targetCamZ = prefersReducedMotion ? 8.2 : 9.8 - Math.min(elapsedTime * 0.38, 2.4);
 
       if (isTransitioning) {
         // Final Transition: Smooth camera warp push-in
