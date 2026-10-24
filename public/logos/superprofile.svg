@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="sp-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#EC4899"/>
+      <stop offset="50%" stopColor="#F43F5E"/>
+      <stop offset="100%" stopColor="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="sp-bolt" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#FFFFFF"/>
+      <stop offset="100%" stopColor="#FDE047"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Circular background emblem -->
+  <rect x="8" y="8" width="84" height="84" rx="26" fill="#0E122A" stroke="url(#sp-grad)" stroke-width="3"/>
+  
+  <!-- Stylized "S" Lightning Bolt Super Profile Mark -->
+  <path
+    d="M58 20L32 50H48L42 80L68 50H52L58 20Z"
+    fill="url(#sp-grad)"
+  />
+  <path
+    d="M55 27L37 48H48L44 73L63 52H52L55 27Z"
+    fill="url(#sp-bolt)"
+    opacity="0.9"
+  />
+</svg>

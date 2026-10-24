@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="kling-grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#00E5FF"/>
+      <stop offset="50%" stopColor="#6366F1"/>
+      <stop offset="100%" stopColor="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="kling-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#38BDF8"/>
+      <stop offset="100%" stopColor="#C084FC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Futuristic Camera Lens / Film Prism Silhouette -->
+  <!-- Outer glowing rounded frame -->
+  <rect x="12" y="12" width="76" height="76" rx="22" fill="#060C1F" stroke="url(#kling-grad1)" stroke-width="3"/>
+  
+  <!-- Stylized "K" Aperture / Prism Rays -->
+  <!-- Vertical spine of K -->
+  <rect x="28" y="26" width="9" height="48" rx="4.5" fill="url(#kling-grad1)"/>
+
+  <!-- Upper diagonal wing of K -->
+  <path d="M43 47L64 26H76L52 50L43 47Z" fill="url(#kling-accent)"/>
+  
+  <!-- Lower diagonal wing of K -->
+  <path d="M52 48L76 74H63L43 53L52 48Z" fill="url(#kling-grad1)"/>
+
+  <!-- Video Camera Lens Core Pip -->
+  <circle cx="56" cy="50" r="5" fill="#00E5FF"/>
+  <circle cx="56" cy="50" r="2.5" fill="#FFFFFF"/>
+</svg>

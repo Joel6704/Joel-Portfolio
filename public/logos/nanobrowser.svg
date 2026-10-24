@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="nano-grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#00E5FF"/>
+      <stop offset="50%" stopColor="#3B82F6"/>
+      <stop offset="100%" stopColor="#8B5CF6"/>
+    </linearGradient>
+    <linearGradient id="nano-glow" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#6366F1"/>
+      <stop offset="100%" stopColor="#00E5FF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Browser Frame Silhouette with Rounded Corners -->
+  <rect x="12" y="14" width="76" height="72" rx="18" stroke="url(#nano-grad1)" stroke-width="4.5" fill="#070D1E"/>
+  
+  <!-- Browser Tab Bar -->
+  <line x1="12" y1="32" x2="88" y2="32" stroke="url(#nano-grad1)" stroke-width="2.5" opacity="0.6"/>
+  <circle cx="23" cy="23" r="2.5" fill="#EF4444"/>
+  <circle cx="31" cy="23" r="2.5" fill="#F59E0B"/>
+  <circle cx="39" cy="23" r="2.5" fill="#10B981"/>
+
+  <!-- AI Autonomous Agent Ring & Core -->
+  <circle cx="50" cy="56" r="16" stroke="url(#nano-glow)" stroke-width="3.5" stroke-dasharray="6 3"/>
+  <circle cx="50" cy="56" r="8" fill="url(#nano-grad1)"/>
+  <circle cx="50" cy="56" r="4" fill="#FFFFFF"/>
+
+  <!-- Compass / Radar Needle Rays -->
+  <path d="M50 42L53 50H47L50 42Z" fill="#00E5FF"/>
+  <path d="M50 70L47 62H53L50 70Z" fill="#8B5CF6"/>
+  <path d="M36 56L44 53V59L36 56Z" fill="#3B82F6"/>
+  <path d="M64 56L56 59V53L64 56Z" fill="#00E5FF"/>
+</svg>
