@@ -92,8 +92,9 @@ export const CursorSpotlight: React.FC<CursorSpotlightProps> = ({
           translateX: '-50%',
           translateY: '-50%',
           opacity: isVisible ? (isIntro ? 0.35 : 0.22) : 0,
-          background:
-            'radial-gradient(circle, rgba(0, 229, 255, 0.22) 0%, rgba(0, 140, 255, 0.18) 25%, rgba(139, 92, 246, 0.14) 50%, rgba(124, 58, 237, 0.05) 70%, transparent 85%)',
+          background: isIntro
+            ? 'radial-gradient(circle, rgba(0, 229, 255, 0.25) 0%, rgba(0, 140, 255, 0.18) 30%, rgba(0, 71, 186, 0.1) 60%, transparent 80%)'
+            : 'radial-gradient(circle, rgba(0, 229, 255, 0.22) 0%, rgba(0, 140, 255, 0.18) 25%, rgba(139, 92, 246, 0.14) 50%, rgba(124, 58, 237, 0.05) 70%, transparent 85%)',
           filter: 'blur(45px)',
           willChange: 'transform, opacity',
         }}

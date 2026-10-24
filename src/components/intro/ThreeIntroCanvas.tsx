@@ -26,12 +26,12 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
     // Check prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // 1. Scene, Camera, Renderer
+    // 1. Scene, Fog & Camera
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x030712, 0.045);
+    scene.fog = new THREE.FogExp2(0x020617, 0.04);
 
-    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100);
-    camera.position.set(0, 0, 9.8);
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera.position.set(0, 0, 9.4);
 
     let renderer: THREE.WebGLRenderer;
     try {
@@ -41,191 +41,354 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
         powerPreference: 'high-performance',
       });
     } catch {
-      // Fallback if WebGL fails
       return;
     }
 
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.3;
     container.appendChild(renderer.domElement);
 
-    // 2. Lighting Rig (Deep Navy, Electric Blue, Cobalt, Purple)
-    const ambientLight = new THREE.AmbientLight(0x08102a, 1.4);
+    // 2. Cinematic Lighting Rig (Deep Navy, Electric Blue, Cyan)
+    const ambientLight = new THREE.AmbientLight(0x040e28, 1.4);
     scene.add(ambientLight);
 
-    // Cyan Key Light
-    const cyanLight = new THREE.PointLight(0x00e5ff, 6.0, 30);
-    cyanLight.position.set(-6, 3.5, 4);
+    // Key Electric Blue Light
+    const keyBlueLight = new THREE.PointLight(0x008cff, 8.0, 35);
+    keyBlueLight.position.set(4, 2.5, 4);
+    scene.add(keyBlueLight);
+
+    // Vivid Cyan Accent Light
+    const cyanLight = new THREE.PointLight(0x00e5ff, 6.0, 28);
+    cyanLight.position.set(1.5, -2.5, 3.5);
     scene.add(cyanLight);
 
-    // Vibrant Purple Fill Light
-    const purpleLight = new THREE.PointLight(0x9333ea, 5.5, 30);
-    purpleLight.position.set(6, -3, 3);
-    scene.add(purpleLight);
+    // Backstage Cobalt Rim Light
+    const rimLight = new THREE.PointLight(0x0044cc, 4.5, 25);
+    rimLight.position.set(5.5, 3.5, -3);
+    scene.add(rimLight);
 
-    // Deep Cobalt Rim Light
-    const cobaltLight = new THREE.PointLight(0x0066ff, 4.0, 25);
-    cobaltLight.position.set(0, 6, -4);
-    scene.add(cobaltLight);
+    // Left ambient fill
+    const leftFill = new THREE.DirectionalLight(0x0033aa, 1.6);
+    leftFill.position.set(-6, 4, 3);
+    scene.add(leftFill);
 
-    // Interactive Mouse Cursor 3D Spotlight
-    const cursorLight = new THREE.PointLight(0x00e5ff, 3.5, 18);
-    cursorLight.position.set(0, 0, 4);
-    scene.add(cursorLight);
+    // Interactive Mouse Point Light
+    const mouseLight = new THREE.PointLight(0x008cff, 2.5, 16);
+    mouseLight.position.set(0, 0, 4);
+    scene.add(mouseLight);
 
     // 3. Materials
-    // Metallic Ring Material (Dark Navy with Electric Blue Emissive)
-    const metallicRingMaterial = new THREE.MeshStandardMaterial({
-      color: 0x0c1638,
-      metalness: 0.92,
-      roughness: 0.18,
-      emissive: 0x002266,
-      emissiveIntensity: 0.35,
-    });
-
-    // Glass-like Translucent Material
-    const glassMaterial = new THREE.MeshPhysicalMaterial({
-      color: 0x0a1435,
-      emissive: 0x001133,
-      emissiveIntensity: 0.2,
-      roughness: 0.1,
-      metalness: 0.1,
-      transmission: 0.9,
-      thickness: 1.6,
+    // Ribbon Surface Material: Translucent physical glass with electric-blue reflection
+    const ribbonMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0x0047ba,
+      emissive: 0x001f7a,
+      emissiveIntensity: 0.5,
+      roughness: 0.12,
+      metalness: 0.32,
+      transmission: 0.68,
+      thickness: 0.75,
       transparent: true,
-      opacity: 0.85,
-      ior: 1.52,
+      opacity: 0.82,
+      ior: 1.48,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.1,
+      clearcoatRoughness: 0.08,
+      side: THREE.DoubleSide,
     });
 
-    // Wireframe Glow Material
-    const wireframeMaterial = new THREE.LineBasicMaterial({
+    // Luminous Cyan Ribbon Edge Highlight Material
+    const edgeMaterial = new THREE.LineBasicMaterial({
       color: 0x00e5ff,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.9,
+      blending: THREE.AdditiveBlending,
     });
 
-    const purpleWireframeMaterial = new THREE.LineBasicMaterial({
-      color: 0xa855f7,
+    // Outer Thin Cyan Ribbon Material
+    const cyanRibbonMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0x00a3ff,
+      emissive: 0x0088ff,
+      emissiveIntensity: 0.65,
+      roughness: 0.1,
+      metalness: 0.2,
+      transmission: 0.75,
       transparent: true,
-      opacity: 0.4,
+      opacity: 0.85,
+      clearcoat: 1.0,
+      side: THREE.DoubleSide,
     });
 
-    // 4. Nested Metallic Orbital Rings
-    const ringGroup = new THREE.Group();
-    scene.add(ringGroup);
+    // Floating Sphere Material
+    const sphereMaterial = new THREE.MeshPhysicalMaterial({
+      color: 0x021c56,
+      emissive: 0x0033aa,
+      emissiveIntensity: 0.55,
+      roughness: 0.14,
+      metalness: 0.25,
+      clearcoat: 1.0,
+      clearcoatRoughness: 0.06,
+      transmission: 0.35,
+    });
 
-    const ring1 = new THREE.Mesh(new THREE.TorusGeometry(3.6, 0.035, 24, 100), metallicRingMaterial);
-    ring1.rotation.x = Math.PI * 0.35;
-    ring1.rotation.y = Math.PI * 0.15;
-    ringGroup.add(ring1);
+    // 4. Ribbon Construction Helper
+    // Builds a continuous smooth 3D curved band with top/bottom glowing edge lines
+    const createCurvedRibbon = (
+      points: THREE.Vector3[],
+      width: number,
+      twistCount: number = 0
+    ) => {
+      const curve = new THREE.CatmullRomCurve3(points, true, 'centripetal');
+      const segments = 160;
+      const frames = curve.computeFrenetFrames(segments, true);
 
-    const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.7, 0.045, 24, 100), metallicRingMaterial);
-    ring2.rotation.x = -Math.PI * 0.25;
-    ring2.rotation.y = Math.PI * 0.45;
-    ringGroup.add(ring2);
+      const positions: number[] = [];
+      const indices: number[] = [];
+      const edge1Positions: number[] = [];
+      const edge2Positions: number[] = [];
 
-    const ring3 = new THREE.Mesh(new THREE.TorusGeometry(1.9, 0.03, 24, 100), metallicRingMaterial);
-    ring3.rotation.x = Math.PI * 0.55;
-    ring3.rotation.z = Math.PI * 0.2;
-    ringGroup.add(ring3);
+      for (let i = 0; i <= segments; i++) {
+        const u = i / segments;
+        const p = curve.getPointAt(u);
+        const n = frames.normals[i % segments];
+        const b = frames.binormals[i % segments];
 
-    // 5. Layered Floating Dimensional Objects
-    interface FloatingItem {
-      mesh: THREE.Object3D;
+        // Subtle twist along the curve
+        const angle = u * Math.PI * 2 * twistCount;
+        const cosA = Math.cos(angle);
+        const sinA = Math.sin(angle);
+
+        // Vector spanning ribbon width
+        const spanX = (b.x * cosA + n.x * sinA) * (width * 0.5);
+        const spanY = (b.y * cosA + n.y * sinA) * (width * 0.5);
+        const spanZ = (b.z * cosA + n.z * sinA) * (width * 0.5);
+
+        const v1x = p.x + spanX;
+        const v1y = p.y + spanY;
+        const v1z = p.z + spanZ;
+
+        const v2x = p.x - spanX;
+        const v2y = p.y - spanY;
+        const v2z = p.z - spanZ;
+
+        positions.push(v1x, v1y, v1z);
+        positions.push(v2x, v2y, v2z);
+
+        edge1Positions.push(v1x, v1y, v1z);
+        edge2Positions.push(v2x, v2y, v2z);
+
+        if (i < segments) {
+          const row1 = i * 2;
+          const row2 = (i + 1) * 2;
+          indices.push(row1, row1 + 1, row2);
+          indices.push(row1 + 1, row2 + 1, row2);
+        }
+      }
+
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      geom.setIndex(indices);
+      geom.computeVertexNormals();
+
+      const edge1Geom = new THREE.BufferGeometry();
+      edge1Geom.setAttribute('position', new THREE.Float32BufferAttribute(edge1Positions, 3));
+
+      const edge2Geom = new THREE.BufferGeometry();
+      edge2Geom.setAttribute('position', new THREE.Float32BufferAttribute(edge2Positions, 3));
+
+      return { geom, edge1Geom, edge2Geom };
+    };
+
+    // 5. 3D Orbital System Group (Sphere + Multiple Ribbons)
+    const orbitalGroup = new THREE.Group();
+    scene.add(orbitalGroup);
+
+    // ── A. Large Luminous Blue Sphere ──
+    const mainSphereGeom = new THREE.SphereGeometry(1.4, 64, 64);
+    const mainSphere = new THREE.Mesh(mainSphereGeom, sphereMaterial);
+    orbitalGroup.add(mainSphere);
+
+    // Inner glowing core
+    const coreGeom = new THREE.SphereGeometry(1.15, 32, 32);
+    const coreMat = new THREE.MeshBasicMaterial({
+      color: 0x0077ff,
+      transparent: true,
+      opacity: 0.55,
+      blending: THREE.AdditiveBlending,
+    });
+    const coreSphere = new THREE.Mesh(coreGeom, coreMat);
+    orbitalGroup.add(coreSphere);
+
+    // Ethereal atmospheric rim glow (corona)
+    const coronaGeom = new THREE.SphereGeometry(1.58, 48, 48);
+    const coronaMat = new THREE.MeshBasicMaterial({
+      color: 0x00d4ff,
+      transparent: true,
+      opacity: 0.22,
+      side: THREE.BackSide,
+      blending: THREE.AdditiveBlending,
+    });
+    const coronaSphere = new THREE.Mesh(coronaGeom, coronaMat);
+    orbitalGroup.add(coronaSphere);
+
+    // ── B. Multiple Curved Orbital Ribbons Surrounding the Sphere ──
+    const ribbonGroups: { group: THREE.Group; speedX: number; speedY: number; speedZ: number }[] = [];
+
+    // Ribbon 1: Dramatic equatorial / diagonal sweeping arc
+    const pts1 = [
+      new THREE.Vector3(2.4, 0.4, 0.2),
+      new THREE.Vector3(1.7, 1.4, 1.5),
+      new THREE.Vector3(-0.3, 1.9, 1.7),
+      new THREE.Vector3(-2.2, 0.9, 0.8),
+      new THREE.Vector3(-2.6, -0.6, -0.5),
+      new THREE.Vector3(-1.6, -1.8, -1.6),
+      new THREE.Vector3(0.5, -2.0, -1.4),
+      new THREE.Vector3(2.1, -1.1, -0.4),
+    ];
+    const r1Data = createCurvedRibbon(pts1, 0.42, 0.5);
+    const r1Mesh = new THREE.Mesh(r1Data.geom, ribbonMaterial);
+    const r1Edge1 = new THREE.LineLoop(r1Data.edge1Geom, edgeMaterial);
+    const r1Edge2 = new THREE.LineLoop(r1Data.edge2Geom, edgeMaterial);
+
+    const r1Group = new THREE.Group();
+    r1Group.add(r1Mesh, r1Edge1, r1Edge2);
+    orbitalGroup.add(r1Group);
+    ribbonGroups.push({ group: r1Group, speedX: 0.001, speedY: 0.0035, speedZ: 0.0008 });
+
+    // Ribbon 2: Steeply inclined polar orbital ribbon
+    const pts2 = [
+      new THREE.Vector3(0.2, 2.6, 0.3),
+      new THREE.Vector3(1.4, 1.8, -1.3),
+      new THREE.Vector3(2.2, 0.2, -1.7),
+      new THREE.Vector3(1.6, -1.6, -1.0),
+      new THREE.Vector3(-0.2, -2.5, 0.2),
+      new THREE.Vector3(-1.5, -1.8, 1.3),
+      new THREE.Vector3(-2.1, 0.2, 1.6),
+      new THREE.Vector3(-1.3, 1.8, 0.9),
+    ];
+    const r2Data = createCurvedRibbon(pts2, 0.35, 0.5);
+    const r2Mesh = new THREE.Mesh(r2Data.geom, ribbonMaterial);
+    const r2Edge1 = new THREE.LineLoop(r2Data.edge1Geom, edgeMaterial);
+    const r2Edge2 = new THREE.LineLoop(r2Data.edge2Geom, edgeMaterial);
+
+    const r2Group = new THREE.Group();
+    r2Group.add(r2Mesh, r2Edge1, r2Edge2);
+    orbitalGroup.add(r2Group);
+    ribbonGroups.push({ group: r2Group, speedX: 0.0028, speedY: -0.004, speedZ: 0.0015 });
+
+    // Ribbon 3: Outer sweeping celestial ribbon
+    const pts3 = [
+      new THREE.Vector3(3.2, 0.2, -0.6),
+      new THREE.Vector3(2.2, 2.0, 0.8),
+      new THREE.Vector3(0.2, 2.9, 1.8),
+      new THREE.Vector3(-2.4, 1.7, 1.2),
+      new THREE.Vector3(-3.2, -0.4, -0.3),
+      new THREE.Vector3(-2.0, -2.1, -1.4),
+      new THREE.Vector3(0.4, -2.8, -1.2),
+      new THREE.Vector3(2.6, -1.8, 0.5),
+    ];
+    const r3Data = createCurvedRibbon(pts3, 0.26, 1);
+    const r3Mesh = new THREE.Mesh(r3Data.geom, ribbonMaterial);
+    const r3Edge1 = new THREE.LineLoop(r3Data.edge1Geom, edgeMaterial);
+    const r3Edge2 = new THREE.LineLoop(r3Data.edge2Geom, edgeMaterial);
+
+    const r3Group = new THREE.Group();
+    r3Group.add(r3Mesh, r3Edge1, r3Edge2);
+    orbitalGroup.add(r3Group);
+    ribbonGroups.push({ group: r3Group, speedX: -0.0018, speedY: 0.0024, speedZ: -0.002 });
+
+    // Ribbon 4: Fine luminous cyan orbital tracer ribbon
+    const pts4 = [
+      new THREE.Vector3(1.9, 0.8, -0.5),
+      new THREE.Vector3(0.6, 2.0, 0.4),
+      new THREE.Vector3(-1.1, 1.8, 1.0),
+      new THREE.Vector3(-2.0, 0.3, 0.6),
+      new THREE.Vector3(-1.7, -1.1, -0.4),
+      new THREE.Vector3(-0.4, -2.0, -0.8),
+      new THREE.Vector3(1.2, -1.6, -0.5),
+      new THREE.Vector3(2.1, -0.4, 0.2),
+    ];
+    const r4Data = createCurvedRibbon(pts4, 0.14, 0);
+    const r4Mesh = new THREE.Mesh(r4Data.geom, cyanRibbonMaterial);
+    const r4Edge1 = new THREE.LineLoop(r4Data.edge1Geom, edgeMaterial);
+    const r4Edge2 = new THREE.LineLoop(r4Data.edge2Geom, edgeMaterial);
+
+    const r4Group = new THREE.Group();
+    r4Group.add(r4Mesh, r4Edge1, r4Edge2);
+    orbitalGroup.add(r4Group);
+    ribbonGroups.push({ group: r4Group, speedX: 0.002, speedY: 0.0055, speedZ: -0.001 });
+
+    // 6. Floating Blue Spheres (Distributed in depth, sizes, subtle drift)
+    interface FloatingSphere {
+      mesh: THREE.Mesh;
       baseX: number;
       baseY: number;
       baseZ: number;
       speedX: number;
       speedY: number;
-      speedZ: number;
       floatSpeed: number;
       floatAmp: number;
       phase: number;
     }
 
-    const floatingItems: FloatingItem[] = [];
+    const floatingSpheres: FloatingSphere[] = [];
+    const sphereConfigs = [
+      // Left side field (behind/framing text)
+      { x: -5.8, y: -2.4, z: 2.2, r: 0.45, amp: 0.28, speed: 0.8 },
+      { x: -4.5, y: 2.8, z: -1.2, r: 0.35, amp: 0.22, speed: 0.95 },
+      { x: -6.2, y: 1.2, z: 0.4, r: 0.28, amp: 0.32, speed: 0.7 },
+      { x: -3.8, y: -3.2, z: -0.8, r: 0.38, amp: 0.25, speed: 0.85 },
+      { x: -2.8, y: 3.5, z: -2.5, r: 0.22, amp: 0.18, speed: 1.1 },
+      { x: -5.0, y: -0.8, z: -3.2, r: 0.25, amp: 0.3, speed: 0.65 },
+      { x: -7.0, y: -1.8, z: -1.5, r: 0.42, amp: 0.35, speed: 0.6 },
+      // Deep central background
+      { x: -1.2, y: -3.4, z: -4.5, r: 0.3, amp: 0.2, speed: 0.75 },
+      { x: 0.4, y: 3.2, z: -3.8, r: 0.24, amp: 0.22, speed: 0.8 },
+      { x: -0.8, y: 0.6, z: -5.2, r: 0.18, amp: 0.16, speed: 0.9 },
+      // Right side surrounding large sphere
+      { x: 5.6, y: 2.6, z: 1.5, r: 0.48, amp: 0.3, speed: 0.75 },
+      { x: 4.8, y: -2.8, z: 1.2, r: 0.42, amp: 0.26, speed: 0.8 },
+      { x: 6.4, y: -1.2, z: -1.4, r: 0.32, amp: 0.34, speed: 0.7 },
+      { x: 2.2, y: 3.6, z: -1.8, r: 0.26, amp: 0.2, speed: 0.85 },
+      { x: 5.2, y: 0.5, z: -3.5, r: 0.36, amp: 0.24, speed: 0.9 },
+      { x: 3.6, y: -3.5, z: -2.0, r: 0.28, amp: 0.28, speed: 0.7 },
+      { x: 6.8, y: 1.8, z: -2.8, r: 0.22, amp: 0.18, speed: 1.05 },
+      { x: 1.8, y: -3.2, z: 2.0, r: 0.2, amp: 0.22, speed: 0.95 },
+    ];
 
-    // Helper to add floating objects with dimensional lighting
-    const addFloatingObject = (
-      mesh: THREE.Object3D,
-      x: number,
-      y: number,
-      z: number,
-      rotSpeed: { x: number; y: number; z: number },
-      floatAmp = 0.3,
-      floatSpeed = 0.8
-    ) => {
-      mesh.position.set(x, y, z);
+    sphereConfigs.forEach((cfg, idx) => {
+      const geom = new THREE.SphereGeometry(cfg.r, 32, 32);
+      const mesh = new THREE.Mesh(geom, sphereMaterial);
+      mesh.position.set(cfg.x, cfg.y, cfg.z);
       scene.add(mesh);
-      floatingItems.push({
+
+      floatingSpheres.push({
         mesh,
-        baseX: x,
-        baseY: y,
-        baseZ: z,
-        speedX: rotSpeed.x,
-        speedY: rotSpeed.y,
-        speedZ: rotSpeed.z,
-        floatSpeed,
-        floatAmp,
+        baseX: cfg.x,
+        baseY: cfg.y,
+        baseZ: cfg.z,
+        speedX: 0.003 + (idx % 4) * 0.002,
+        speedY: 0.004 + (idx % 3) * 0.002,
+        floatSpeed: cfg.speed,
+        floatAmp: cfg.amp,
         phase: Math.random() * Math.PI * 2,
       });
-    };
+    });
 
-    // A. Foreground Glass Sphere (Closer to camera, creates deep cinematic parallax)
-    const fgSphere = new THREE.Mesh(new THREE.SphereGeometry(0.75, 48, 48), glassMaterial);
-    addFloatingObject(fgSphere, -4.5, -2.2, 3.2, { x: 0.003, y: 0.005, z: 0.002 }, 0.25, 0.7);
-
-    // B. Midground Glass Sphere (Right side framing)
-    const mgSphereRight = new THREE.Mesh(new THREE.SphereGeometry(0.9, 48, 48), glassMaterial);
-    addFloatingObject(mgSphereRight, 4.8, 1.8, 0.5, { x: 0.004, y: 0.003, z: 0.002 }, 0.3, 0.6);
-
-    // C. Top-Left Midground Sphere
-    const mgSphereLeft = new THREE.Mesh(new THREE.SphereGeometry(0.6, 36, 36), glassMaterial);
-    addFloatingObject(mgSphereLeft, -3.8, 2.8, -1.2, { x: 0.005, y: 0.004, z: 0.003 }, 0.2, 0.9);
-
-    // D. Floating Icosahedron with Glowing Inner Wireframe
-    const icosaGroup = new THREE.Group();
-    const icosaGeom = new THREE.IcosahedronGeometry(0.85, 0);
-    const icosaMesh = new THREE.Mesh(icosaGeom, glassMaterial);
-    const icosaWire = new THREE.LineSegments(new THREE.WireframeGeometry(icosaGeom), wireframeMaterial);
-    icosaGroup.add(icosaMesh);
-    icosaGroup.add(icosaWire);
-    addFloatingObject(icosaGroup, 3.8, -2.4, -0.8, { x: 0.007, y: 0.009, z: 0.004 }, 0.35, 0.75);
-
-    // E. Floating Octahedron Crystal (Left Center)
-    const octaGroup = new THREE.Group();
-    const octaGeom = new THREE.OctahedronGeometry(0.7, 0);
-    const octaMesh = new THREE.Mesh(octaGeom, glassMaterial);
-    const octaWire = new THREE.LineSegments(new THREE.WireframeGeometry(octaGeom), purpleWireframeMaterial);
-    octaGroup.add(octaMesh);
-    octaGroup.add(octaWire);
-    addFloatingObject(octaGroup, -4.2, 0.4, -2.0, { x: 0.008, y: 0.006, z: 0.005 }, 0.28, 0.85);
-
-    // F. Hypnotic Torus Knot in Background
-    const knotGeom = new THREE.TorusKnotGeometry(0.65, 0.18, 90, 16);
-    const knotMesh = new THREE.Mesh(knotGeom, metallicRingMaterial);
-    addFloatingObject(knotMesh, 0.2, 3.4, -3.5, { x: 0.006, y: 0.008, z: 0.003 }, 0.22, 0.5);
-
-    // 6. Cosmic Glowing Dust Particles (Electric Cyan, Blue & Purple)
-    const particleCount = 450;
+    // 7. Subtle Cosmic Dust / Micro Particle Field (Cyan & Electric Blue)
+    const particleCount = 280;
     const particlePositions = new Float32Array(particleCount * 3);
     const particleColors = new Float32Array(particleCount * 3);
 
-    const cyanColor = new THREE.Color(0x00e5ff);
-    const blueColor = new THREE.Color(0x008cff);
-    const purpleColor = new THREE.Color(0xa855f7);
+    const colCyan = new THREE.Color(0x00e5ff);
+    const colBlue = new THREE.Color(0x008cff);
 
     for (let i = 0; i < particleCount; i++) {
-      particlePositions[i * 3] = (Math.random() - 0.5) * 28;
-      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 18;
-      particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 18;
+      particlePositions[i * 3] = (Math.random() - 0.5) * 32;
+      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+      particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 20;
 
-      const rand = Math.random();
-      const col = rand > 0.6 ? cyanColor : rand > 0.3 ? blueColor : purpleColor;
+      const col = Math.random() > 0.5 ? colCyan : colBlue;
       particleColors[i * 3] = col.r;
       particleColors[i * 3 + 1] = col.g;
       particleColors[i * 3 + 2] = col.b;
@@ -235,96 +398,120 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
     particleGeom.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
     particleGeom.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
 
-    const particleMaterial = new THREE.PointsMaterial({
-      size: 0.065,
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.055,
       vertexColors: true,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.65,
       blending: THREE.AdditiveBlending,
     });
 
-    const particles = new THREE.Points(particleGeom, particleMaterial);
+    const particles = new THREE.Points(particleGeom, particleMat);
     scene.add(particles);
 
-    // 7. Mouse Interaction Event Listeners
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current.targetX = (e.clientX / window.innerWidth) * 2 - 1;
-      mouseRef.current.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
-    };
-
-    const handleResize = () => {
+    // 8. Responsive Layout Updates
+    const updateSceneLayout = () => {
       width = window.innerWidth;
       height = window.innerHeight;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Responsive positioning of the 3D orbital structure
+      if (width >= 1024) {
+        // Desktop: Luminous sphere and ribbons occupy the right side
+        orbitalGroup.position.set(3.2, 0.1, 0.2);
+        orbitalGroup.scale.set(1.0, 1.0, 1.0);
+        camera.position.z = 9.4;
+      } else if (width >= 768) {
+        // Tablet: Shifted slightly right and scaled
+        orbitalGroup.position.set(1.8, 0.3, -0.6);
+        orbitalGroup.scale.set(0.85, 0.85, 0.85);
+        camera.position.z = 10.0;
+      } else {
+        // Mobile: Centered, pushed into background, scaled down
+        orbitalGroup.position.set(0.0, 1.4, -2.4);
+        orbitalGroup.scale.set(0.68, 0.68, 0.68);
+        camera.position.z = 10.8;
+      }
+    };
+
+    updateSceneLayout();
+
+    // 9. Mouse Listeners
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseRef.current.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', updateSceneLayout);
 
-    // 8. Animation & Cinematic Camera Drift Loop
+    // 10. Continuous Animation Loop
     let animationFrameId: number;
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
 
-      // Mouse smooth lerping
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
+      // Smooth mouse lerping
+      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.045;
+      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.045;
 
       const mX = mouseRef.current.x;
       const mY = mouseRef.current.y;
 
-      // Cursor 3D Spotlight follows mouse
-      cursorLight.position.x = mX * 7.0;
-      cursorLight.position.y = mY * 4.5;
+      // Mouse interactive light tracks cursor smoothly
+      mouseLight.position.x = mX * 7.5;
+      mouseLight.position.y = mY * 4.8;
 
-      // Cinematic Camera Motion: Smooth push-in drift from 9.8 to ~7.4
-      let targetCamZ = prefersReducedMotion ? 8.2 : 9.8 - Math.min(elapsedTime * 0.38, 2.4);
-
+      // Camera motion: base positioning + smooth parallax
+      let targetZ = width < 768 ? 10.8 : width < 1024 ? 10.0 : 9.4;
       if (isTransitioning) {
-        // Final Transition: Smooth camera warp push-in
-        targetCamZ = 3.8;
+        targetZ = 3.6; // Cinematic forward warp push-in on transition
       }
 
-      camera.position.z += (targetCamZ - camera.position.z) * 0.04;
+      camera.position.z += (targetZ - camera.position.z) * 0.04;
 
-      // Camera parallax perspective shift
       if (!prefersReducedMotion) {
-        camera.position.x += (mX * 1.3 - camera.position.x) * 0.04;
-        camera.position.y += (mY * 0.9 - camera.position.y) * 0.04;
+        const targetCamX = mX * 1.1;
+        const targetCamY = mY * 0.8;
+        camera.position.x += (targetCamX - camera.position.x) * 0.035;
+        camera.position.y += (targetCamY - camera.position.y) * 0.035;
       }
       camera.lookAt(0, 0, 0);
 
-      // Rotate Orbital Rings with layered speeds
-      ring1.rotation.z += 0.003;
-      ring2.rotation.z -= 0.004;
-      ring3.rotation.y += 0.005;
+      // Sphere rotation
+      mainSphere.rotation.y += 0.002;
+      coreSphere.rotation.y -= 0.003;
 
-      ringGroup.rotation.y = mX * 0.25;
-      ringGroup.rotation.x = -mY * 0.18;
-
-      // Update Floating Dimensional Objects
-      for (let i = 0; i < floatingItems.length; i++) {
-        const item = floatingItems[i];
-        item.mesh.rotation.x += item.speedX;
-        item.mesh.rotation.y += item.speedY;
-        item.mesh.rotation.z += item.speedZ;
-
-        // Harmonic floating vertical bobbing
-        const floatOffset = Math.sin(elapsedTime * item.floatSpeed + item.phase) * item.floatAmp;
-        item.mesh.position.y = item.baseY + floatOffset;
-
-        // Subtle parallax displacement
-        item.mesh.position.x = item.baseX + mX * 0.35;
+      // Continuous subtle orbital ribbon rotation
+      for (let i = 0; i < ribbonGroups.length; i++) {
+        const r = ribbonGroups[i];
+        r.group.rotation.x += r.speedX;
+        r.group.rotation.y += r.speedY;
+        r.group.rotation.z += r.speedZ;
       }
 
-      // Slowly drift starfield particles
-      particles.rotation.y = elapsedTime * 0.02 + mX * 0.08;
-      particles.rotation.x = mY * 0.05;
+      // Parallax reaction on the orbital group
+      orbitalGroup.rotation.y = mX * 0.18;
+      orbitalGroup.rotation.x = -mY * 0.12;
+
+      // Floating spheres: gentle harmonic bobbing and drifting
+      for (let i = 0; i < floatingSpheres.length; i++) {
+        const s = floatingSpheres[i];
+        s.mesh.rotation.x += s.speedX;
+        s.mesh.rotation.y += s.speedY;
+
+        const floatOffset = Math.sin(elapsedTime * s.floatSpeed + s.phase) * s.floatAmp;
+        s.mesh.position.y = s.baseY + floatOffset;
+        s.mesh.position.x = s.baseX + Math.cos(elapsedTime * s.floatSpeed * 0.6 + s.phase) * (s.floatAmp * 0.4) + mX * 0.25;
+      }
+
+      // Subtle starfield drift
+      particles.rotation.y = elapsedTime * 0.015 + mX * 0.05;
+      particles.rotation.x = mY * 0.03;
 
       renderer.render(scene, camera);
       animationFrameId = requestAnimationFrame(animate);
@@ -332,32 +519,41 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
 
     animate();
 
-    // 9. Thorough WebGL Resource Cleanup
+    // 11. Resource Cleanup
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', updateSceneLayout);
       cancelAnimationFrame(animationFrameId);
 
-      // Dispose Geometries
-      ring1.geometry.dispose();
-      ring2.geometry.dispose();
-      ring3.geometry.dispose();
-      fgSphere.geometry.dispose();
-      mgSphereRight.geometry.dispose();
-      mgSphereLeft.geometry.dispose();
-      icosaGeom.dispose();
-      octaGeom.dispose();
-      knotGeom.dispose();
+      // Geometries
+      mainSphereGeom.dispose();
+      coreGeom.dispose();
+      coronaGeom.dispose();
+      r1Data.geom.dispose();
+      r1Data.edge1Geom.dispose();
+      r1Data.edge2Geom.dispose();
+      r2Data.geom.dispose();
+      r2Data.edge1Geom.dispose();
+      r2Data.edge2Geom.dispose();
+      r3Data.geom.dispose();
+      r3Data.edge1Geom.dispose();
+      r3Data.edge2Geom.dispose();
+      r4Data.geom.dispose();
+      r4Data.edge1Geom.dispose();
+      r4Data.edge2Geom.dispose();
       particleGeom.dispose();
 
-      // Dispose Materials
-      metallicRingMaterial.dispose();
-      glassMaterial.dispose();
-      wireframeMaterial.dispose();
-      purpleWireframeMaterial.dispose();
-      particleMaterial.dispose();
+      floatingSpheres.forEach((s) => s.mesh.geometry.dispose());
 
-      // Dispose Renderer
+      // Materials
+      ribbonMaterial.dispose();
+      edgeMaterial.dispose();
+      cyanRibbonMaterial.dispose();
+      sphereMaterial.dispose();
+      coreMat.dispose();
+      coronaMat.dispose();
+      particleMat.dispose();
+
       renderer.dispose();
       if (container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
