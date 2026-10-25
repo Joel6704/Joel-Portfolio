@@ -515,15 +515,84 @@
   }
 }
 
+/* ── 3D Skills Showcase: Rotating Multicolor Rainbow Border ── */
+@keyframes rotateRainbowBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── 3D Skills Showcase: Floating Card Keyframes with Layered Depth ── */
+@keyframes floatSkillCard1 {
+  0%, 100% {
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotateX(1.2deg) rotateY(-1deg);
+  }
+}
+
+@keyframes floatSkillCard2 {
+  0%, 100% {
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-9px) rotateX(-1deg) rotateY(1.4deg);
+  }
+}
+
+@keyframes floatSkillCard3 {
+  0%, 100% {
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-6px) rotateX(1.4deg) rotateY(0.8deg);
+  }
+}
+
+@keyframes floatSkillCard4 {
+  0%, 100% {
+    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotateX(-1.2deg) rotateY(-1.2deg);
+  }
+}
+
+/* ── Border Light Sweep Shimmer ── */
+@keyframes borderLightSweep {
+  0% {
+    opacity: 0.35;
+    filter: drop-shadow(0 0 10px rgba(0, 140, 255, 0.4));
+  }
+  50% {
+    opacity: 0.85;
+    filter: drop-shadow(0 0 22px rgba(0, 229, 255, 0.75)) drop-shadow(0 0 35px rgba(168, 85, 247, 0.45));
+  }
+  100% {
+    opacity: 0.35;
+    filter: drop-shadow(0 0 10px rgba(0, 140, 255, 0.4));
+  }
+}
+
 /* ── Reduced Motion Accessibility ── */
 @media (prefers-reduced-motion: reduce) {
   .text-gradient-electric,
   .text-gradient-intro,
   .hero-title-motion,
   .text-revenue-sweep,
-  .animate-neon-trace {
+  .animate-neon-trace,
+  .animate-rotate-rainbow,
+  .animate-float-card-1,
+  .animate-float-card-2,
+  .animate-float-card-3,
+  .animate-float-card-4 {
     animation: none !important;
     background-position: 50% 50% !important;
+    transform: none !important;
   }
   .typing-cursor {
     animation: none !important;
