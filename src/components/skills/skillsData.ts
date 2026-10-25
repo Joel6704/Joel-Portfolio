@@ -24,6 +24,10 @@ export interface DetailedSkill {
   iconAnimType: 'bounce' | 'tilt' | 'pulse' | 'spin' | 'float';
   accentColor: string;
   glowColor: string;
+  gradientColors: string;
+  borderDuration: string;
+  borderReverse?: boolean;
+  floatAnimation: string;
   meaning: string;
   practicalActivities: string[];
   realWorldImpact: string;
@@ -40,7 +44,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: Share2,
     iconAnimType: 'bounce',
     accentColor: '#008CFF',
-    glowColor: 'rgba(0, 140, 255, 0.45)',
+    glowColor: 'rgba(0, 140, 255, 0.55)',
+    gradientColors:
+      'conic-gradient(from 0deg, #008CFF 0%, #00E5FF 22%, #8B5CF6 46%, #EC4899 68%, #A855F7 84%, #008CFF 100%)',
+    borderDuration: '5.2s',
+    borderReverse: false,
+    floatAnimation: 'floatSkill0 7.2s ease-in-out infinite',
     meaning:
       'Developing and executing multi-channel social media strategies that elevate brand awareness, nurture active community engagement, and turn casual followers into qualified business inquiries.',
     practicalActivities: [
@@ -62,7 +71,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: Palette,
     iconAnimType: 'tilt',
     accentColor: '#00E5FF',
-    glowColor: 'rgba(0, 229, 255, 0.45)',
+    glowColor: 'rgba(0, 229, 255, 0.55)',
+    gradientColors:
+      'conic-gradient(from 60deg, #00E5FF 0%, #A855F7 26%, #EC4899 50%, #38BDF8 74%, #008CFF 88%, #00E5FF 100%)',
+    borderDuration: '6.4s',
+    borderReverse: true,
+    floatAnimation: 'floatSkill1 8.4s ease-in-out infinite 0.6s',
     meaning:
       'Designing compelling visual narratives, educational carousels, and promotional graphic assets tailored for digital feeds to stop the scroll and communicate complex messages instantly.',
     practicalActivities: [
@@ -84,7 +98,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: CalendarDays,
     iconAnimType: 'pulse',
     accentColor: '#8B5CF6',
-    glowColor: 'rgba(139, 92, 246, 0.45)',
+    glowColor: 'rgba(139, 92, 246, 0.55)',
+    gradientColors:
+      'conic-gradient(from 120deg, #8B5CF6 0%, #EC4899 24%, #00E5FF 48%, #6366F1 72%, #A855F7 88%, #8B5CF6 100%)',
+    borderDuration: '5.8s',
+    borderReverse: false,
+    floatAnimation: 'floatSkill2 7.6s ease-in-out infinite 1.2s',
     meaning:
       'Orchestrating end-to-end promotional campaigns, from initial concept brainstorms and audience persona definition to milestone scheduling, multi-format collateral rollouts, and launch execution.',
     practicalActivities: [
@@ -106,7 +125,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: BarChart2,
     iconAnimType: 'pulse',
     accentColor: '#00E5FF',
-    glowColor: 'rgba(0, 229, 255, 0.4)',
+    glowColor: 'rgba(0, 229, 255, 0.5)',
+    gradientColors:
+      'conic-gradient(from 180deg, #00E5FF 0%, #3B82F6 25%, #8B5CF6 50%, #EC4899 75%, #00E5FF 100%)',
+    borderDuration: '4.9s',
+    borderReverse: true,
+    floatAnimation: 'floatSkill3 8.0s ease-in-out infinite 0.4s',
     meaning:
       'Transforming raw website traffic and campaign interaction metrics into clear, actionable business insights that guide budget allocation and performance improvements.',
     practicalActivities: [
@@ -128,7 +152,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: Search,
     iconAnimType: 'tilt',
     accentColor: '#008CFF',
-    glowColor: 'rgba(0, 140, 255, 0.45)',
+    glowColor: 'rgba(0, 140, 255, 0.55)',
+    gradientColors:
+      'conic-gradient(from 90deg, #008CFF 0%, #00E5FF 22%, #A855F7 48%, #EC4899 72%, #0047BA 88%, #008CFF 100%)',
+    borderDuration: '6.0s',
+    borderReverse: false,
+    floatAnimation: 'floatSkill4 7.8s ease-in-out infinite 1.6s',
     meaning:
       'Conducting search intent analysis and on-page optimization to position website pages and business listings at the top of search engine results for high-value organic queries.',
     practicalActivities: [
@@ -150,7 +179,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: Compass,
     iconAnimType: 'spin',
     accentColor: '#EC4899',
-    glowColor: 'rgba(236, 72, 153, 0.45)',
+    glowColor: 'rgba(236, 72, 153, 0.55)',
+    gradientColors:
+      'conic-gradient(from 270deg, #EC4899 0%, #A855F7 25%, #008CFF 50%, #00E5FF 75%, #EC4899 100%)',
+    borderDuration: '5.5s',
+    borderReverse: true,
+    floatAnimation: 'floatSkill5 8.6s ease-in-out infinite 0.8s',
     meaning:
       'Bridging technical capabilities with business objectives through articulate client consultations, stakeholder pitches, collaborative feedback loops, and cross-team alignment.',
     practicalActivities: [
@@ -172,7 +206,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: Film,
     iconAnimType: 'tilt',
     accentColor: '#A855F7',
-    glowColor: 'rgba(168, 85, 247, 0.45)',
+    glowColor: 'rgba(168, 85, 247, 0.55)',
+    gradientColors:
+      'conic-gradient(from 45deg, #A855F7 0%, #EC4899 24%, #00E5FF 48%, #6366F1 74%, #008CFF 88%, #A855F7 100%)',
+    borderDuration: '5.0s',
+    borderReverse: false,
+    floatAnimation: 'floatSkill6 6.8s ease-in-out infinite 1.4s',
     meaning:
       'Crafting dynamic, retention-optimized short-form video reels and promotional videos with deliberate visual pacing, seamless transitions, kinetic subtitles, and professional audio balancing.',
     practicalActivities: [
@@ -194,7 +233,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: Sparkles,
     iconAnimType: 'spin',
     accentColor: '#00E5FF',
-    glowColor: 'rgba(0, 229, 255, 0.5)',
+    glowColor: 'rgba(0, 229, 255, 0.6)',
+    gradientColors:
+      'conic-gradient(from 150deg, #00E5FF 0%, #EC4899 26%, #8B5CF6 52%, #38BDF8 76%, #A855F7 90%, #00E5FF 100%)',
+    borderDuration: '6.2s',
+    borderReverse: true,
+    floatAnimation: 'floatSkill7 7.4s ease-in-out infinite 0.3s',
     meaning:
       'Harnessing prompt engineering and cutting-edge generative AI design tools to rapidly produce custom visual assets, conceptual marketing posters, and iterative campaign variations.',
     practicalActivities: [
@@ -216,7 +260,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: FileText,
     iconAnimType: 'float',
     accentColor: '#008CFF',
-    glowColor: 'rgba(0, 140, 255, 0.45)',
+    glowColor: 'rgba(0, 140, 255, 0.55)',
+    gradientColors:
+      'conic-gradient(from 210deg, #008CFF 0%, #8B5CF6 25%, #EC4899 50%, #00E5FF 75%, #0047BA 88%, #008CFF 100%)',
+    borderDuration: '5.6s',
+    borderReverse: false,
+    floatAnimation: 'floatSkill8 8.2s ease-in-out infinite 1.1s',
     meaning:
       'Writing structured, informative, and search-optimized blog articles that answer audience inquiries, build industry authority, and nurture readers along the buyer journey.',
     practicalActivities: [
@@ -238,7 +287,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: Users,
     iconAnimType: 'pulse',
     accentColor: '#8B5CF6',
-    glowColor: 'rgba(139, 92, 246, 0.45)',
+    glowColor: 'rgba(139, 92, 246, 0.55)',
+    gradientColors:
+      'conic-gradient(from 330deg, #8B5CF6 0%, #00E5FF 24%, #EC4899 50%, #3B82F6 75%, #A855F7 90%, #8B5CF6 100%)',
+    borderDuration: '6.6s',
+    borderReverse: true,
+    floatAnimation: 'floatSkill9 7.9s ease-in-out infinite 0.7s',
     meaning:
       'Managing task flows, synchronizing deliverables between copywriters, designers, and video editors, and keeping complex creative projects strictly on schedule.',
     practicalActivities: [
@@ -260,7 +314,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: Briefcase,
     iconAnimType: 'tilt',
     accentColor: '#EC4899',
-    glowColor: 'rgba(236, 72, 153, 0.45)',
+    glowColor: 'rgba(236, 72, 153, 0.55)',
+    gradientColors:
+      'conic-gradient(from 75deg, #EC4899 0%, #8B5CF6 25%, #00E5FF 50%, #A855F7 75%, #008CFF 90%, #EC4899 100%)',
+    borderDuration: '5.4s',
+    borderReverse: false,
+    floatAnimation: 'floatSkill10 8.8s ease-in-out infinite 1.5s',
     meaning:
       'Nurturing transparent, dependable client partnerships by proactively communicating campaign progress, setting realistic expectations, and addressing feedback with speed.',
     practicalActivities: [
@@ -282,7 +341,12 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     icon: Cloud,
     iconAnimType: 'float',
     accentColor: '#008CFF',
-    glowColor: 'rgba(0, 140, 255, 0.5)',
+    glowColor: 'rgba(0, 140, 255, 0.6)',
+    gradientColors:
+      'conic-gradient(from 195deg, #008CFF 0%, #00E5FF 24%, #6366F1 50%, #EC4899 74%, #A855F7 90%, #008CFF 100%)',
+    borderDuration: '6.1s',
+    borderReverse: true,
+    floatAnimation: 'floatSkill11 8.5s ease-in-out infinite 0.9s',
     meaning:
       'Understanding foundational cloud computing architecture, storage accounts, virtual machines, and cloud service deployments to support robust, scalable web applications.',
     practicalActivities: [

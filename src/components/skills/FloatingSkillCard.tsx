@@ -79,6 +79,8 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
     }
   };
 
+  const Icon = skill.icon;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 35, scale: 0.94 }}
@@ -86,7 +88,7 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
       viewport={{ once: true, amount: 0.12 }}
       transition={{
         duration: 0.6,
-        delay: Math.min(index * 0.07, 0.6),
+        delay: Math.min(index * 0.06, 0.5),
         ease: [0.16, 1, 0.3, 1],
       }}
       className="h-full select-none"
@@ -110,51 +112,57 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
           transition: 'transform 0.18s ease-out, box-shadow 0.3s ease, border-color 0.3s ease',
         }}
       >
-        {/* Floating Physics Layer */}
+        {/* ═════════════════════════════════════════════════════════════
+            CONTINUOUS INDEPENDENT FLOATING PHYSICS LAYER
+            (Each skill card has its own custom 3D float trajectory,
+             duration, delay, and axis variations)
+            ═════════════════════════════════════════════════════════════ */}
         <div
           className="relative w-full h-full rounded-2xl"
           style={{
-            animation:
-              index % 4 === 0
-                ? 'floatSkillCard1 5.6s ease-in-out infinite'
-                : index % 4 === 1
-                ? 'floatSkillCard2 6.4s ease-in-out infinite 0.7s'
-                : index % 4 === 2
-                ? 'floatSkillCard3 5.0s ease-in-out infinite 1.4s'
-                : 'floatSkillCard4 6.0s ease-in-out infinite 2.1s',
+            animation: skill.floatAnimation,
             transformStyle: 'preserve-3d',
           }}
         >
           {/* ═════════════════════════════════════════════════════════════
               1. CONTINUOUS ROTATING MULTICOLOR GRADIENT BORDER
+              (Custom gradient palette & rotation duration per card)
               ═════════════════════════════════════════════════════════════ */}
           <div
             className="absolute -inset-[1.5px] rounded-2xl overflow-hidden pointer-events-none z-0"
             aria-hidden="true"
           >
-            {/* Spinning Conic Rainbow Gradient (Blue, Cyan, Violet, Pink, Purple) */}
+            {/* Spinning Conic Rainbow Gradient */}
             <div
               className={`absolute -inset-[100%] transition-opacity duration-500 ${
                 isSelected ? 'opacity-100' : 'opacity-70 group-hover:opacity-100'
               }`}
               style={{
-                background:
-                  'conic-gradient(from 0deg, #008CFF 0%, #00E5FF 22%, #8B5CF6 45%, #EC4899 68%, #A855F7 85%, #008CFF 100%)',
-                animation: 'rotateRainbowBorder 5.5s linear infinite',
+                background: skill.gradientColors,
+                animation: `${
+                  skill.borderReverse
+                    ? 'rotateRainbowBorderReverse'
+                    : 'rotateRainbowBorder'
+                } ${skill.borderDuration} linear infinite`,
+              }}
+            />
+
+            {/* Subtle traveling light streak sheen */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                animation: 'borderLightSweep 4s ease-in-out infinite',
               }}
             />
           </div>
 
-          {/* Ambient Outer Blue & Purple Glow around the edges */}
+          {/* Ambient Outer Glow with custom hue per card */}
           <div
             className={`absolute -inset-1 rounded-2xl blur-md pointer-events-none transition-opacity duration-500 -z-10 ${
-              isSelected
-                ? 'opacity-85'
-                : 'opacity-40 group-hover:opacity-80'
+              isSelected ? 'opacity-90' : 'opacity-40 group-hover:opacity-85'
             }`}
             style={{
-              background:
-                'radial-gradient(circle, rgba(0, 229, 255, 0.35) 0%, rgba(168, 85, 247, 0.25) 50%, transparent 75%)',
+              background: `radial-gradient(circle, ${skill.glowColor} 0%, rgba(168, 85, 247, 0.25) 50%, transparent 75%)`,
             }}
             aria-hidden="true"
           />
@@ -200,9 +208,8 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
               <div
                 className="absolute inset-0 rounded-2xl blur-lg transition-all duration-300 group-hover:scale-125"
                 style={{
-                  background:
-                    'radial-gradient(circle, rgba(0, 229, 255, 0.4) 0%, rgba(139, 92, 246, 0.25) 60%, transparent 80%)',
-                  opacity: isSelected ? 0.9 : 0.45,
+                  background: `radial-gradient(circle, ${skill.glowColor} 0%, rgba(139, 92, 246, 0.25) 60%, transparent 80%)`,
+                  opacity: isSelected ? 0.95 : 0.5,
                 }}
                 aria-hidden="true"
               />
@@ -214,7 +221,7 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
                 <div
                   className={`text-cyan-400 group-hover:text-cyan-200 transition-all duration-300 flex items-center justify-center ${getIconMotion()}`}
                 >
-                  <skill.icon size={26} className="drop-shadow-[0_0_8px_rgba(0,229,255,0.7)]" />
+                  <Icon size={26} className="drop-shadow-[0_0_8px_rgba(0,229,255,0.7)]" />
                 </div>
               </div>
             </div>

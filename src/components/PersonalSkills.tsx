@@ -204,25 +204,63 @@ export const PersonalSkills: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* Atmospheric Radial Gradient Light Orbs */}
-      <motion.div
-        animate={{
-          scale: [1, 1.12, 1],
-          opacity: [0.25, 0.45, 0.25],
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[850px] h-[450px] pointer-events-none rounded-full blur-[120px]"
+      {/* ── 4 Slowly Moving Blurred Light Orbs (Electric Blue, Cyan, Violet, Pink/Magenta) ── */}
+      {/* Orb 1: Electric Royal Blue (Top-Left) */}
+      <div
+        className="absolute -top-24 -left-20 w-[650px] h-[550px] pointer-events-none rounded-full blur-[130px] opacity-25 animate-ambient-orb-1"
         style={{
-          background:
-            'radial-gradient(ellipse at center, rgba(0, 140, 255, 0.3) 0%, rgba(168, 85, 247, 0.2) 45%, transparent 75%)',
+          background: 'radial-gradient(circle, #008CFF 0%, rgba(0, 71, 186, 0.5) 50%, transparent 75%)',
         }}
         aria-hidden="true"
       />
 
+      {/* Orb 2: Electric Cyan (Center-Right) */}
       <div
-        className="absolute bottom-10 right-10 w-[500px] h-[350px] pointer-events-none rounded-full blur-[100px] opacity-25"
+        className="absolute top-1/4 -right-24 w-[700px] h-[550px] pointer-events-none rounded-full blur-[140px] opacity-25 animate-ambient-orb-2"
         style={{
-          background: 'radial-gradient(circle, rgba(0, 229, 255, 0.35) 0%, rgba(236, 72, 153, 0.2) 50%, transparent 75%)',
+          background: 'radial-gradient(circle, #00E5FF 0%, rgba(0, 140, 255, 0.45) 50%, transparent 75%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Orb 3: Violet & Purple (Bottom-Left) */}
+      <div
+        className="absolute -bottom-28 -left-24 w-[680px] h-[580px] pointer-events-none rounded-full blur-[135px] opacity-20 animate-ambient-orb-3"
+        style={{
+          background: 'radial-gradient(circle, #8B5CF6 0%, rgba(99, 102, 241, 0.4) 50%, transparent 75%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Orb 4: Magenta & Neon Pink (Center-Bottom) */}
+      <div
+        className="absolute bottom-1/4 right-1/4 w-[600px] h-[500px] pointer-events-none rounded-full blur-[130px] opacity-15 animate-ambient-orb-4"
+        style={{
+          background: 'radial-gradient(circle, #EC4899 0%, rgba(168, 85, 247, 0.35) 50%, transparent 75%)',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Dynamic Interactive Reactive Lighting responding to currently selected / hovered skill */}
+      <div
+        className={`absolute inset-0 pointer-events-none transition-opacity duration-700 blur-[120px] ${
+          isDetailOpen && activeSkill ? 'opacity-45' : 'opacity-0'
+        }`}
+        style={{
+          background: activeSkill
+            ? `radial-gradient(ellipse 65% 50% at 50% 50%, ${activeSkill.glowColor} 0%, rgba(139, 92, 246, 0.15) 50%, transparent 75%)`
+            : 'transparent',
+          transition: 'opacity 0.6s ease, background 0.7s ease',
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Subtle Ambient Light Wave */}
+      <div
+        className="absolute -inset-x-20 top-1/3 h-96 pointer-events-none opacity-20 blur-[100px] -rotate-6"
+        style={{
+          background:
+            'linear-gradient(90deg, transparent 0%, rgba(0, 140, 255, 0.35) 30%, rgba(0, 229, 255, 0.25) 50%, rgba(168, 85, 247, 0.3) 70%, transparent 100%)',
         }}
         aria-hidden="true"
       />

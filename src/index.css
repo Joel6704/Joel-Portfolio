@@ -515,7 +515,7 @@
   }
 }
 
-/* ── 3D Skills Showcase: Rotating Multicolor Rainbow Border ── */
+/* ── 3D Skills Showcase: Rotating Multicolor Rainbow Borders ── */
 @keyframes rotateRainbowBorder {
   0% {
     transform: rotate(0deg);
@@ -525,40 +525,225 @@
   }
 }
 
-/* ── 3D Skills Showcase: Floating Card Keyframes with Layered Depth ── */
-@keyframes floatSkillCard1 {
-  0%, 100% {
-    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+@keyframes rotateRainbowBorderReverse {
+  0% {
+    transform: rotate(360deg);
   }
-  50% {
-    transform: translateY(-7px) rotateX(1.2deg) rotateY(-1deg);
-  }
-}
-
-@keyframes floatSkillCard2 {
-  0%, 100% {
-    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
-  }
-  50% {
-    transform: translateY(-9px) rotateX(-1deg) rotateY(1.4deg);
+  100% {
+    transform: rotate(0deg);
   }
 }
 
-@keyframes floatSkillCard3 {
+/* ── 3D Skills Showcase: 12 Distinct Independent Floating Motions ── */
+/* Card 0: Gentle diagonal figure-8 float (Social Media Marketing) */
+@keyframes floatSkill0 {
   0%, 100% {
-    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  25% {
+    transform: translate3d(4px, -6px, 6px) rotateX(1.3deg) rotateY(-1deg) rotateZ(0.5deg);
   }
   50% {
-    transform: translateY(-6px) rotateX(1.4deg) rotateY(0.8deg);
+    transform: translate3d(-3px, -9px, 10px) rotateX(0.8deg) rotateY(1.2deg) rotateZ(-0.6deg);
+  }
+  75% {
+    transform: translate3d(-5px, -3px, 4px) rotateX(-1deg) rotateY(0.8deg) rotateZ(-0.4deg);
   }
 }
 
-@keyframes floatSkillCard4 {
+/* Card 1: Curved vertical sway (Content Creation) */
+@keyframes floatSkill1 {
   0%, 100% {
-    transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  30% {
+    transform: translate3d(-5px, -8px, 8px) rotateX(-1.2deg) rotateY(1.4deg) rotateZ(-0.7deg);
+  }
+  70% {
+    transform: translate3d(4px, -4px, 4px) rotateX(1deg) rotateY(-1.2deg) rotateZ(0.6deg);
+  }
+}
+
+/* Card 2: Lateral sway with gentle lift (Campaign Planning) */
+@keyframes floatSkill2 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  35% {
+    transform: translate3d(6px, -5px, 6px) rotateX(1.2deg) rotateY(-1.3deg) rotateZ(0.8deg);
+  }
+  65% {
+    transform: translate3d(-4px, -8px, 10px) rotateX(-0.9deg) rotateY(1deg) rotateZ(-0.5deg);
+  }
+}
+
+/* Card 3: Diagonal rhythmic drift (Data Analysis) */
+@keyframes floatSkill3 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  40% {
+    transform: translate3d(-6px, -9px, 9px) rotateX(-1.4deg) rotateY(1.1deg) rotateZ(-0.6deg);
+  }
+  75% {
+    transform: translate3d(5px, -4px, 5px) rotateX(1.1deg) rotateY(-0.9deg) rotateZ(0.5deg);
+  }
+}
+
+/* Card 4: Counter-clockwise gentle orbital loop (SEO & Keyword Research) */
+@keyframes floatSkill4 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  25% {
+    transform: translate3d(5px, 3px, 4px) rotateX(1deg) rotateY(0.9deg) rotateZ(0.7deg);
   }
   50% {
-    transform: translateY(-8px) rotateX(-1.2deg) rotateY(-1.2deg);
+    transform: translate3d(-3px, -8px, 9px) rotateX(1.4deg) rotateY(-1.1deg) rotateZ(-0.4deg);
+  }
+  75% {
+    transform: translate3d(-6px, -3px, 5px) rotateX(-1deg) rotateY(0.8deg) rotateZ(-0.8deg);
+  }
+}
+
+/* Card 5: High-arc vertical hover (Communication & Strategy) */
+@keyframes floatSkill5 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  35% {
+    transform: translate3d(-4px, -10px, 10px) rotateX(-1.1deg) rotateY(-1.3deg) rotateZ(-0.5deg);
+  }
+  70% {
+    transform: translate3d(5px, -3px, 5px) rotateX(1.3deg) rotateY(1.1deg) rotateZ(0.7deg);
+  }
+}
+
+/* Card 6: Horizontal wave glide (Video Editing) */
+@keyframes floatSkill6 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  30% {
+    transform: translate3d(7px, -6px, 7px) rotateX(1.4deg) rotateY(-1.2deg) rotateZ(0.6deg);
+  }
+  70% {
+    transform: translate3d(-5px, -7px, 8px) rotateX(-0.8deg) rotateY(1.3deg) rotateZ(-0.7deg);
+  }
+}
+
+/* Card 7: Subtle breathing pulse & drift (AI Graphic Designing) */
+@keyframes floatSkill7 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  40% {
+    transform: translate3d(4px, -8px, 9px) rotateX(-1.3deg) rotateY(1.4deg) rotateZ(-0.7deg);
+  }
+  75% {
+    transform: translate3d(-5px, -4px, 4px) rotateX(1.1deg) rotateY(-0.8deg) rotateZ(0.5deg);
+  }
+}
+
+/* Card 8: Inverted pendulum float (Blog Writing) */
+@keyframes floatSkill8 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  30% {
+    transform: translate3d(-6px, -7px, 7px) rotateX(1.2deg) rotateY(-1deg) rotateZ(0.7deg);
+  }
+  70% {
+    transform: translate3d(5px, -5px, 6px) rotateX(-1deg) rotateY(1.1deg) rotateZ(-0.5deg);
+  }
+}
+
+/* Card 9: S-curve lateral float (Coordination) */
+@keyframes floatSkill9 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  35% {
+    transform: translate3d(6px, -7px, 8px) rotateX(-1.1deg) rotateY(1.2deg) rotateZ(-0.8deg);
+  }
+  75% {
+    transform: translate3d(-4px, -5px, 5px) rotateX(1.2deg) rotateY(-1deg) rotateZ(0.6deg);
+  }
+}
+
+/* Card 10: Deep space elevation float (Client Management) */
+@keyframes floatSkill10 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  40% {
+    transform: translate3d(-5px, -9px, 10px) rotateX(1.3deg) rotateY(-1.2deg) rotateZ(0.7deg);
+  }
+  80% {
+    transform: translate3d(4px, -3px, 4px) rotateX(-0.9deg) rotateY(1deg) rotateZ(-0.5deg);
+  }
+}
+
+/* Card 11: Celestial harmonic orbit (Microsoft Azure) */
+@keyframes floatSkill11 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+  25% {
+    transform: translate3d(5px, -4px, 5px) rotateX(-1.3deg) rotateY(1.1deg) rotateZ(-0.6deg);
+  }
+  50% {
+    transform: translate3d(-4px, -8px, 9px) rotateX(1.2deg) rotateY(-1.4deg) rotateZ(0.7deg);
+  }
+  75% {
+    transform: translate3d(-6px, -3px, 4px) rotateX(-0.8deg) rotateY(0.9deg) rotateZ(-0.4deg);
+  }
+}
+
+/* ── Interactive 3D Detail Card: Continuous Floating Motion While Visible ── */
+@keyframes floatDetailCard {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: translate3d(0px, -5px, 8px) rotateX(0.8deg) rotateY(-0.6deg);
+  }
+}
+
+/* ── Dynamic Background Light Orbs Floating Keyframes ── */
+@keyframes ambientOrbFloat1 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(45px, 28px) scale(1.14);
+  }
+}
+
+@keyframes ambientOrbFloat2 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1.1);
+  }
+  50% {
+    transform: translate(-50px, -32px) scale(0.92);
+  }
+}
+
+@keyframes ambientOrbFloat3 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(0.95);
+  }
+  50% {
+    transform: translate(38px, -40px) scale(1.18);
+  }
+}
+
+@keyframes ambientOrbFloat4 {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1.05);
+  }
+  50% {
+    transform: translate(-42px, 35px) scale(0.96);
   }
 }
 
@@ -578,24 +763,49 @@
   }
 }
 
+/* ── Ambient Orbs and Detail Float Utility Classes ── */
+.animate-ambient-orb-1 {
+  animation: ambientOrbFloat1 18s ease-in-out infinite;
+}
+
+.animate-ambient-orb-2 {
+  animation: ambientOrbFloat2 22s ease-in-out infinite;
+}
+
+.animate-ambient-orb-3 {
+  animation: ambientOrbFloat3 20s ease-in-out infinite;
+}
+
+.animate-ambient-orb-4 {
+  animation: ambientOrbFloat4 24s ease-in-out infinite;
+}
+
+.animate-detail-float {
+  animation: floatDetailCard 6.2s ease-in-out infinite;
+}
+
 /* ── Reduced Motion Accessibility ── */
 @media (prefers-reduced-motion: reduce) {
   .text-gradient-electric,
   .text-gradient-intro,
   .hero-title-motion,
   .text-revenue-sweep,
-  .animate-neon-trace,
-  .animate-rotate-rainbow,
-  .animate-float-card-1,
-  .animate-float-card-2,
-  .animate-float-card-3,
-  .animate-float-card-4 {
+  .animate-neon-trace {
     animation: none !important;
     background-position: 50% 50% !important;
-    transform: none !important;
   }
   .typing-cursor {
     animation: none !important;
     opacity: 1 !important;
+  }
+  [class*="animate-float-skill-"],
+  [class*="animate-rotate-border-"],
+  .animate-detail-float,
+  .animate-ambient-orb-1,
+  .animate-ambient-orb-2,
+  .animate-ambient-orb-3,
+  .animate-ambient-orb-4 {
+    animation: none !important;
+    transform: none !important;
   }
 }
