@@ -891,7 +891,24 @@
     0%, 100% { transform: translate3d(0px, 0px, 0px); }
     50% { transform: translate3d(-2px, -2px, 0px); }
   }
+
+  /* ── Futuristic Sci-Fi Projects Section Utilities ── */
+  @keyframes neonLaserPulse {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scaleX(0.95);
+    }
+    50% {
+      opacity: 1;
+      transform: scaleX(1.05);
+    }
+  }
+
+  .animate-laser-pulse {
+    animation: neonLaserPulse 3.5s ease-in-out infinite;
+  }
 }
+
 
 /* ── Reduced Motion Accessibility ── */
 @media (prefers-reduced-motion: reduce) {

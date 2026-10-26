@@ -234,7 +234,7 @@ export const projects: Project[] = [
   },
   {
     id: 'careeriq360-social-media',
-    title: 'CareerIQ360 – Social Media Management, ontent Creation & Creative Design',
+    title: 'CareerIQ360 – Social Media Management, Content Creation & Creative Design',
     category: 'Social Media Management • Graphic Design • Content Creation',
     categoryLabel: 'PROJECT 02 · Social Media Management',
     tagline:
