@@ -45,7 +45,7 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
     }
 
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.3;
     container.appendChild(renderer.domElement);
@@ -79,19 +79,16 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
     mouseLight.position.set(0, 0, 4);
     scene.add(mouseLight);
 
-    // 3. Materials
+    // 3. Materials (Optimized for high FPS without expensive transmission passes)
     // Ribbon Surface Material: Translucent physical glass with electric-blue reflection
     const ribbonMaterial = new THREE.MeshPhysicalMaterial({
       color: 0x0047ba,
       emissive: 0x001f7a,
       emissiveIntensity: 0.5,
-      roughness: 0.12,
-      metalness: 0.32,
-      transmission: 0.68,
-      thickness: 0.75,
+      roughness: 0.15,
+      metalness: 0.3,
       transparent: true,
-      opacity: 0.82,
-      ior: 1.48,
+      opacity: 0.85,
       clearcoat: 1.0,
       clearcoatRoughness: 0.08,
       side: THREE.DoubleSide,
@@ -110,11 +107,10 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
       color: 0x00a3ff,
       emissive: 0x0088ff,
       emissiveIntensity: 0.65,
-      roughness: 0.1,
-      metalness: 0.2,
-      transmission: 0.75,
+      roughness: 0.12,
+      metalness: 0.22,
       transparent: true,
-      opacity: 0.85,
+      opacity: 0.88,
       clearcoat: 1.0,
       side: THREE.DoubleSide,
     });
@@ -124,11 +120,12 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
       color: 0x021c56,
       emissive: 0x0033aa,
       emissiveIntensity: 0.55,
-      roughness: 0.14,
+      roughness: 0.16,
       metalness: 0.25,
       clearcoat: 1.0,
       clearcoatRoughness: 0.06,
-      transmission: 0.35,
+      transparent: true,
+      opacity: 0.92,
     });
 
     // 4. Ribbon Construction Helper
@@ -416,7 +413,7 @@ export const ThreeIntroCanvas: React.FC<ThreeIntroCanvasProps> = ({
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
       // Responsive positioning of the 3D orbital structure
       if (width >= 1024) {

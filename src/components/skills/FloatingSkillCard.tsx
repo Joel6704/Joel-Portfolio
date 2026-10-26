@@ -1,5 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import type { DetailedSkill } from './skillsData';
 
 interface FloatingSkillCardProps {
@@ -21,7 +22,7 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // Smooth 3D tilt without React re-renders (utilizes CSS custom properties)
+  // Subtle 3D tilt without React re-renders (utilizes CSS custom properties)
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const card = cardRef.current;
     if (!card) return;
@@ -31,8 +32,8 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
     const normX = (x - rect.width / 2) / (rect.width / 2);
     const normY = (y - rect.height / 2) / (rect.height / 2);
 
-    card.style.setProperty('--tilt-x', `${(-normY * 8.5).toFixed(2)}deg`);
-    card.style.setProperty('--tilt-y', `${(normX * 8.5).toFixed(2)}deg`);
+    card.style.setProperty('--tilt-x', `${(-normY * 5).toFixed(2)}deg`);
+    card.style.setProperty('--tilt-y', `${(normX * 5).toFixed(2)}deg`);
     card.style.setProperty('--glare-x', `${(normX * 45 + 50).toFixed(1)}%`);
     card.style.setProperty('--glare-y', `${(normY * 45 + 50).toFixed(1)}%`);
   }, []);
@@ -54,7 +55,8 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
     onHoverEnd();
   }, [onHoverEnd]);
 
-  const handleClick = useCallback(
+  // Clicking the card or View More button opens the skill description modal
+  const handleCardClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       const rect = e.currentTarget.getBoundingClientRect();
       onSelect(skill, rect);
@@ -62,7 +64,18 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
     [skill, onSelect]
   );
 
-  // Dynamic icon hover effect
+  const handleViewMoreClick = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      if (cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        onSelect(skill, rect);
+      }
+    },
+    [skill, onSelect]
+  );
+
+  // Dynamic icon micro-motion on hover
   const getIconMotion = () => {
     switch (skill.iconAnimType) {
       case 'spin':
@@ -70,9 +83,9 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
       case 'tilt':
         return 'group-hover:-rotate-12 group-hover:scale-115';
       case 'pulse':
-        return 'group-hover:scale-120';
+        return 'group-hover:scale-115';
       case 'float':
-        return 'group-hover:-translate-y-1 group-hover:scale-110';
+        return 'group-hover:-translate-y-0.5 group-hover:scale-110';
       case 'bounce':
       default:
         return 'group-hover:-translate-y-0.5 group-hover:scale-110';
@@ -81,41 +94,56 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
 
   const Icon = skill.icon;
 
+  // Multiple vibrant colors for the glowing border tracing line:
+  // Starts with transparent gap (230deg), then travels as a luminous electric line
+  // ending with an intense white/cyan glowing spark head
+  const tracerGradient = `conic-gradient(from 0deg, transparent 0deg, transparent 230deg, ${skill.accentColor} 265deg, #00E5FF 310deg, #A855F7 338deg, #EC4899 352deg, #FFFFFF 360deg)`;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 35, scale: 0.94 }}
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, amount: 0.12 }}
+      viewport={{ once: true, amount: 0.15 }}
       transition={{
-        duration: 0.6,
-        delay: Math.min(index * 0.06, 0.5),
+        duration: 0.5,
+        delay: Math.min(index * 0.04, 0.4),
         ease: [0.16, 1, 0.3, 1],
       }}
-      className="h-full select-none"
+      className="select-none flex justify-center items-center w-full"
       style={{ perspective: 1200 }}
     >
       <div
         ref={cardRef}
-        onClick={handleClick}
+        onClick={handleCardClick}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className={`group relative h-full w-full rounded-2xl cursor-pointer transition-all duration-300 ease-out ${
+        tabIndex={0}
+        role="button"
+        aria-label={`Skill details for ${skill.name}`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (cardRef.current) {
+              onSelect(skill, cardRef.current.getBoundingClientRect());
+            }
+          }
+        }}
+        /* UNIFORM CARD DIMENSIONS FOR ALL 12 SKILLS */
+        className={`group relative w-full max-w-[215px] sm:max-w-[225px] lg:max-w-[235px] h-[126px] sm:h-[132px] cursor-pointer rounded-2xl transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
           isSelected
-            ? 'scale-[1.03] shadow-[0_0_35px_rgba(0,229,255,0.45),0_0_55px_rgba(168,85,247,0.35)]'
-            : 'hover:scale-[1.03] shadow-[0_12px_30px_-8px_rgba(0,0,0,0.7)] hover:shadow-[0_20px_45px_-10px_rgba(0,0,0,0.85),0_0_30px_rgba(0,140,255,0.35)]'
+            ? 'scale-[1.04] z-30 shadow-[0_0_30px_rgba(0,229,255,0.45),0_0_50px_rgba(168,85,247,0.35)]'
+            : 'hover:scale-[1.03] hover:z-20 shadow-[0_10px_25px_-6px_rgba(0,0,0,0.7)] hover:shadow-[0_16px_35px_-8px_rgba(0,0,0,0.85),0_0_24px_rgba(0,140,255,0.35)]'
         }`}
         style={{
           transformStyle: 'preserve-3d',
           transform:
             'rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(0px)',
-          transition: 'transform 0.18s ease-out, box-shadow 0.3s ease, border-color 0.3s ease',
+          transition: 'transform 0.18s ease-out, box-shadow 0.3s ease',
         }}
       >
         {/* ═════════════════════════════════════════════════════════════
             CONTINUOUS INDEPENDENT FLOATING PHYSICS LAYER
-            (Each skill card has its own custom 3D float trajectory,
-             duration, delay, and axis variations)
             ═════════════════════════════════════════════════════════════ */}
         <div
           className="relative w-full h-full rounded-2xl"
@@ -125,58 +153,55 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
           }}
         >
           {/* ═════════════════════════════════════════════════════════════
-              1. CONTINUOUS ROTATING MULTICOLOR GRADIENT BORDER
-              (Custom gradient palette & rotation duration per card)
+              ANIMATED BORDER TRACING: A glowing line travels around the card's border
               ═════════════════════════════════════════════════════════════ */}
           <div
             className="absolute -inset-[1.5px] rounded-2xl overflow-hidden pointer-events-none z-0"
             aria-hidden="true"
           >
-            {/* Spinning Conic Rainbow Gradient */}
+            {/* Base subtle guide border */}
+            <div className="absolute inset-0 rounded-2xl border border-white/[0.08]" />
+
+            {/* Glowing tracer line segment traveling continuously around the border */}
             <div
-              className={`absolute -inset-[100%] transition-opacity duration-500 ${
-                isSelected ? 'opacity-100' : 'opacity-70 group-hover:opacity-100'
+              className={`absolute -inset-[160%] pointer-events-none ${
+                skill.borderReverse ? 'animate-border-trace-reverse' : 'animate-border-trace'
               }`}
               style={{
-                background: skill.gradientColors,
-                animation: `${
-                  skill.borderReverse
-                    ? 'rotateRainbowBorderReverse'
-                    : 'rotateRainbowBorder'
-                } ${skill.borderDuration} linear infinite`,
-              }}
-            />
-
-            {/* Subtle traveling light streak sheen */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                animation: 'borderLightSweep 4s ease-in-out infinite',
+                background: tracerGradient,
+                animationDuration: skill.borderDuration || '4.5s',
               }}
             />
           </div>
 
-          {/* Ambient Outer Glow with custom hue per card */}
+          {/* Luminous Outer Glow Following the Tracer */}
           <div
-            className={`absolute -inset-1 rounded-2xl blur-md pointer-events-none transition-opacity duration-500 -z-10 ${
-              isSelected ? 'opacity-90' : 'opacity-40 group-hover:opacity-85'
-            }`}
+            className={`absolute -inset-1 rounded-2xl blur-md pointer-events-none -z-10 transition-opacity duration-300 ${
+              skill.borderReverse ? 'animate-border-trace-reverse' : 'animate-border-trace'
+            } ${isSelected ? 'opacity-90' : 'opacity-40 group-hover:opacity-75'}`}
             style={{
-              background: `radial-gradient(circle, ${skill.glowColor} 0%, rgba(168, 85, 247, 0.25) 50%, transparent 75%)`,
+              background: tracerGradient,
+              animationDuration: skill.borderDuration || '4.5s',
             }}
             aria-hidden="true"
           />
 
           {/* ═════════════════════════════════════════════════════════════
-              2. TRANSLUCENT GLASS CARD INTERIOR (Dark Navy)
+              MULTIPLE COLOR SKILL BOX (Dark translucent glass with vibrant accents)
               ═════════════════════════════════════════════════════════════ */}
           <div
-            className="relative z-10 w-full h-full rounded-2xl p-6 sm:p-7 flex flex-col items-center justify-center text-center overflow-hidden"
+            className="relative z-10 w-full h-full rounded-[calc(1rem-1.5px)] p-2.5 sm:p-3 flex flex-col items-center justify-between text-center overflow-hidden"
             style={{
-              background:
-                'linear-gradient(145deg, rgba(8, 16, 42, 0.88) 0%, rgba(5, 10, 28, 0.82) 50%, rgba(3, 7, 20, 0.92) 100%)',
+              background: `
+                radial-gradient(circle at 18% 18%, ${skill.glowColor.replace('0.55', '0.18').replace('0.5', '0.18')} 0%, transparent 60%),
+                radial-gradient(circle at 82% 82%, rgba(168, 85, 247, 0.14) 0%, transparent 60%),
+                radial-gradient(circle at 50% 100%, rgba(0, 229, 255, 0.08) 0%, transparent 60%),
+                linear-gradient(135deg, rgba(8, 16, 40, 0.88) 0%, rgba(5, 10, 28, 0.82) 50%, rgba(3, 7, 22, 0.92) 100%)
+              `,
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
+              boxShadow:
+                'inset 0 1px 1px rgba(255, 255, 255, 0.22), inset 0 -1px 1px rgba(0, 0, 0, 0.5)',
               transformStyle: 'preserve-3d',
             }}
           >
@@ -185,77 +210,74 @@ export const FloatingSkillCard: React.FC<FloatingSkillCardProps> = ({
               className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
               style={{
                 background:
-                  'radial-gradient(circle 140px at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.15) 0%, rgba(0, 229, 255, 0.08) 40%, transparent 80%)',
+                  'radial-gradient(circle 100px at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.16) 0%, rgba(0, 229, 255, 0.06) 45%, transparent 80%)',
               }}
               aria-hidden="true"
             />
 
             {/* Subtle Diagonal Glass Sheen */}
             <div
-              className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/[0.035] to-transparent"
+              className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent"
               aria-hidden="true"
             />
 
-            {/* Layered Depth Element 1: 3D Floating Icon Container */}
+            {/* ── 1. SKILL ICON WITH MULTICOLOR GLOW ── */}
             <div
-              className="relative mb-5 flex items-center justify-center"
-              style={{
-                transform: 'translateZ(26px)',
-                transformStyle: 'preserve-3d',
-              }}
-            >
-              {/* Outer Glowing Halo behind Icon */}
-              <div
-                className="absolute inset-0 rounded-2xl blur-lg transition-all duration-300 group-hover:scale-125"
-                style={{
-                  background: `radial-gradient(circle, ${skill.glowColor} 0%, rgba(139, 92, 246, 0.25) 60%, transparent 80%)`,
-                  opacity: isSelected ? 0.95 : 0.5,
-                }}
-                aria-hidden="true"
-              />
-
-              {/* Glass Icon Badge */}
-              <div
-                className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center border border-cyan-400/35 bg-gradient-to-br from-[#0A1A3A]/90 via-[#060E26]/90 to-[#020617]/95 shadow-[0_8px_20px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.25)] group-hover:border-cyan-300 group-hover:shadow-[0_0_24px_rgba(0,229,255,0.45),inset_0_1px_2px_rgba(255,255,255,0.4)] transition-all duration-300"
-              >
-                <div
-                  className={`text-cyan-400 group-hover:text-cyan-200 transition-all duration-300 flex items-center justify-center ${getIconMotion()}`}
-                >
-                  <Icon size={26} className="drop-shadow-[0_0_8px_rgba(0,229,255,0.7)]" />
-                </div>
-              </div>
-            </div>
-
-            {/* Layered Depth Element 2: Skill Name */}
-            <div
-              className="relative px-2 flex flex-col items-center"
+              className="relative flex items-center justify-center shrink-0"
               style={{
                 transform: 'translateZ(18px)',
                 transformStyle: 'preserve-3d',
               }}
             >
-              <h3 className="font-heading text-base sm:text-[1.08rem] font-bold uppercase tracking-wider text-white group-hover:text-cyan-200 transition-colors duration-200 leading-snug drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                {skill.name}
-              </h3>
-
-              {/* Minimal category accent under skill name */}
-              <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.2em] uppercase text-slate-400/80 group-hover:text-cyan-300/90 mt-2 transition-colors duration-200">
-                {skill.category}
-              </span>
+              <div
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl flex items-center justify-center border border-cyan-400/35 bg-gradient-to-br from-[#0E2046]/90 via-[#0A1434]/85 to-[#040A1E]/95 shadow-[0_4px_12px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.25)] group-hover:border-cyan-300 transition-all duration-300"
+                style={{
+                  boxShadow: `0 0 14px -2px ${skill.glowColor}`,
+                }}
+              >
+                <div
+                  className={`text-cyan-400 group-hover:text-cyan-200 transition-all duration-300 flex items-center justify-center ${getIconMotion()}`}
+                >
+                  <Icon size={16} className="drop-shadow-[0_0_6px_rgba(0,229,255,0.7)]" />
+                </div>
+              </div>
             </div>
 
-            {/* Layered Depth Element 3: Bottom Hover Cue Indicator */}
+            {/* ── 2. SKILL NAME (CLEAN, HIGH-CONTRAST WHITE) ── */}
             <div
-              className="mt-4 flex items-center gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+              className="relative w-full px-1 my-auto"
               style={{
-                transform: 'translateZ(12px)',
+                transform: 'translateZ(22px)',
                 transformStyle: 'preserve-3d',
               }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#00E5FF] group-hover:scale-125 transition-transform" />
-              <span className="font-space text-[10px] tracking-wider text-cyan-300/80 group-hover:text-cyan-200 font-medium uppercase">
-                View Details
-              </span>
+              <h3 className="font-heading text-[11px] sm:text-xs lg:text-[12.5px] font-bold uppercase tracking-wider text-white group-hover:text-cyan-200 transition-colors duration-200 leading-snug drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] line-clamp-2">
+                {skill.name}
+              </h3>
+            </div>
+
+            {/* ── 3. "VIEW MORE" BUTTON: CLICK TO VIEW SKILL DESCRIPTION ── */}
+            <div
+              className="relative w-full flex justify-center pt-0.5"
+              style={{
+                transform: 'translateZ(16px)',
+                transformStyle: 'preserve-3d',
+              }}
+            >
+              <button
+                type="button"
+                onClick={handleViewMoreClick}
+                className="group/btn relative inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9.5px] sm:text-[10px] font-heading font-semibold tracking-wider uppercase text-cyan-300 border border-cyan-400/35 bg-gradient-to-r from-cyan-500/15 via-blue-500/10 to-purple-500/15 hover:border-cyan-300 hover:text-white hover:shadow-[0_0_14px_rgba(0,229,255,0.45)] hover:scale-[1.05] active:scale-[0.98] transition-all duration-200 cursor-pointer overflow-hidden"
+              >
+                {/* Subtle animated shimmer streak across View More button */}
+                <span className="relative z-10 flex items-center gap-1">
+                  <span>View More</span>
+                  <ArrowRight size={10} className="text-cyan-400 group-hover/btn:translate-x-0.5 transition-transform" />
+                </span>
+                
+                {/* Button inner glow overlay on hover */}
+                <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-purple-500/20 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+              </button>
             </div>
           </div>
         </div>

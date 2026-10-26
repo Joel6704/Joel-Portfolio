@@ -68,7 +68,7 @@ export const WelcomeIntro: React.FC<WelcomeIntroProps> = ({ onComplete }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 1 }}
       animate={{
         opacity: isTransitioning ? 0 : 1,
         scale: isTransitioning ? 1.06 : 1,

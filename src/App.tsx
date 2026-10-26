@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { HomePage } from './components/homepage';
 import { About } from './components/About';
 import { Projects } from './components/Projects';
@@ -18,18 +18,16 @@ export const App: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Manage coordinated welcome intro animation (4-6s sequence, plays once per session)
+  // Manage initial welcome intro state (Intro is always initial screen on load/refresh unless prefers-reduced-motion)
   const [showIntro, setShowIntro] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
       try {
-        const hasSeen = sessionStorage.getItem('joel_portfolio_intro_seen');
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (hasSeen === 'true' || prefersReducedMotion) {
+        if (prefersReducedMotion) {
           return false;
         }
       } catch {
-        // Fallback for private mode restriction
-        return false;
+        return true;
       }
     }
     return true;
@@ -37,11 +35,6 @@ export const App: React.FC = () => {
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    try {
-      sessionStorage.setItem('joel_portfolio_intro_seen', 'true');
-    } catch {
-      // Ignored in restricted environments
-    }
   };
 
   // Copy to clipboard handler with feedback toast
@@ -65,6 +58,9 @@ export const App: React.FC = () => {
 
   // Section observer to update active navigation state
   useEffect(() => {
+    // Only run intersection observer after intro completes and HomePage is mounted
+    if (showIntro) return;
+
     const sectionIds = [
       'hero',
       'about',
@@ -100,47 +96,57 @@ export const App: React.FC = () => {
         if (el) observer.unobserve(el);
       });
     };
-  }, []);
+  }, [showIntro]);
 
   return (
     <>
-      {/* 1. Coordinated Welcome Intro Animation Sequence */}
       <AnimatePresence mode="wait">
-        {showIntro && <WelcomeIntro onComplete={handleIntroComplete} />}
+        {showIntro ? (
+          /* 1. Coordinated Welcome Intro Animation Sequence: First & Only screen on initial open / refresh */
+          <WelcomeIntro key="intro" onComplete={handleIntroComplete} />
+        ) : (
+          /* 2. Main Home Page & Content: Mounts cleanly after intro with smooth crossfade */
+          <motion.div
+            key="home-page"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full min-h-screen"
+          >
+            <HomePage activeSection={activeSection}>
+              {/* 3. About Me Section */}
+              <About />
+
+              {/* 4. Featured Projects / Work */}
+              <Projects onSelectProject={setSelectedProject} />
+
+              {/* 5. Personal Skills Section */}
+              <PersonalSkills />
+
+              {/* 6. Education & Experience Section */}
+              <EducationExperience />
+
+              {/* 7. Tools I Use */}
+              <ToolsSection />
+
+              {/* 8. Contact Section */}
+              <ContactSection onCopyText={handleCopyText} />
+
+              {/* 9. Footer */}
+              <Footer />
+
+              {/* Interactive Case Study Modal */}
+              <ProjectModal
+                project={selectedProject}
+                onClose={() => setSelectedProject(null)}
+              />
+
+              {/* Interactive Toast Notification */}
+              <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
+            </HomePage>
+          </motion.div>
+        )}
       </AnimatePresence>
-
-      {/* 2. Main Home Page & Content */}
-      <HomePage activeSection={activeSection}>
-        {/* 3. About Me Section */}
-        <About />
-
-        {/* 4. Featured Projects / Work */}
-        <Projects onSelectProject={setSelectedProject} />
-
-        {/* 5. Personal Skills Section */}
-        <PersonalSkills />
-
-        {/* 6. Education & Experience Section */}
-        <EducationExperience />
-
-        {/* 7. Tools I Use */}
-        <ToolsSection />
-
-        {/* 8. Contact Section */}
-        <ContactSection onCopyText={handleCopyText} />
-
-        {/* 9. Footer */}
-        <Footer />
-
-        {/* Interactive Case Study Modal */}
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
-
-        {/* Interactive Toast Notification */}
-        <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
-      </HomePage>
     </>
   );
 };

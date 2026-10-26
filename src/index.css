@@ -515,7 +515,7 @@
   }
 }
 
-/* ── 3D Skills Showcase: Rotating Multicolor Rainbow Borders ── */
+/* ── 3D Skills Showcase: Rotating Multicolor Rainbow Borders & Border Tracing ── */
 @keyframes rotateRainbowBorder {
   0% {
     transform: rotate(0deg);
@@ -532,6 +532,35 @@
   100% {
     transform: rotate(0deg);
   }
+}
+
+/* ── Animated Border Tracing: A glowing line travels around a card or button's border ── */
+@keyframes borderTraceSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes borderTraceSpinReverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-border-trace {
+  animation: borderTraceSpin 4.5s linear infinite;
+  will-change: transform;
+}
+
+.animate-border-trace-reverse {
+  animation: borderTraceSpinReverse 4.8s linear infinite;
+  will-change: transform;
 }
 
 /* ── 3D Skills Showcase: 12 Distinct Independent Floating Motions ── */
@@ -763,6 +792,34 @@
   }
 }
 
+/* ── Floating 3D Geometric Crystals Animations (Reference Image Style) ── */
+@keyframes floatCrystal1 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotate(0deg) rotateX(10deg) rotateY(15deg);
+  }
+  50% {
+    transform: translate3d(14px, -24px, 20px) rotate(180deg) rotateX(-12deg) rotateY(-10deg);
+  }
+}
+
+@keyframes floatCrystal2 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotate(45deg) rotateX(-15deg);
+  }
+  50% {
+    transform: translate3d(-18px, 20px, -15px) rotate(225deg) rotateX(10deg);
+  }
+}
+
+@keyframes floatCrystal3 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0px) rotate(15deg) rotateY(10deg);
+  }
+  50% {
+    transform: translate3d(12px, 18px, 12px) rotate(195deg) rotateY(-12deg);
+  }
+}
+
 /* ── Ambient Orbs and Detail Float Utility Classes ── */
 .animate-ambient-orb-1 {
   animation: ambientOrbFloat1 18s ease-in-out infinite;
@@ -782,6 +839,58 @@
 
 .animate-detail-float {
   animation: floatDetailCard 6.2s ease-in-out infinite;
+}
+
+/* ── Mobile Skills Float Optimization (Gentle movement, zero overflow) ── */
+@media (max-width: 767px) {
+  @keyframes floatSkill0 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(2px, -3px, 0px); }
+  }
+  @keyframes floatSkill1 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(-2px, -3px, 0px); }
+  }
+  @keyframes floatSkill2 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(2px, -2px, 0px); }
+  }
+  @keyframes floatSkill3 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(-2px, -3px, 0px); }
+  }
+  @keyframes floatSkill4 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(2px, 2px, 0px); }
+  }
+  @keyframes floatSkill5 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(-2px, -3px, 0px); }
+  }
+  @keyframes floatSkill6 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(2.5px, -2px, 0px); }
+  }
+  @keyframes floatSkill7 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(-2px, -2px, 0px); }
+  }
+  @keyframes floatSkill8 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(2px, -3px, 0px); }
+  }
+  @keyframes floatSkill9 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(-2px, -2px, 0px); }
+  }
+  @keyframes floatSkill10 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(2px, -3px, 0px); }
+  }
+  @keyframes floatSkill11 {
+    0%, 100% { transform: translate3d(0px, 0px, 0px); }
+    50% { transform: translate3d(-2px, -2px, 0px); }
+  }
 }
 
 /* ── Reduced Motion Accessibility ── */
@@ -807,5 +916,8 @@
   .animate-ambient-orb-4 {
     animation: none !important;
     transform: none !important;
+  }
+  [style*="floatCrystal"] {
+    animation: none !important;
   }
 }

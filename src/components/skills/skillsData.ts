@@ -28,6 +28,14 @@ export interface DetailedSkill {
   borderDuration: string;
   borderReverse?: boolean;
   floatAnimation: string;
+  glyph: string;
+  desktopOffset: {
+    yOffset: number;
+    xOffset: number;
+    zDepth: number;
+    scale: number;
+    baseTilt: number;
+  };
   meaning: string;
   practicalActivities: string[];
   realWorldImpact: string;
@@ -50,6 +58,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '5.2s',
     borderReverse: false,
     floatAnimation: 'floatSkill0 7.2s ease-in-out infinite',
+    glyph: '= ○',
+    desktopOffset: {
+      yOffset: -6,
+      xOffset: 8,
+      zDepth: 14,
+      scale: 1.01,
+      baseTilt: -1.2,
+    },
     meaning:
       'Developing and executing multi-channel social media strategies that elevate brand awareness, nurture active community engagement, and turn casual followers into qualified business inquiries.',
     practicalActivities: [
@@ -77,6 +93,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '6.4s',
     borderReverse: true,
     floatAnimation: 'floatSkill1 8.4s ease-in-out infinite 0.6s',
+    glyph: '≡ ◇',
+    desktopOffset: {
+      yOffset: -26,
+      xOffset: -6,
+      zDepth: 22,
+      scale: 1.04,
+      baseTilt: 1.5,
+    },
     meaning:
       'Designing compelling visual narratives, educational carousels, and promotional graphic assets tailored for digital feeds to stop the scroll and communicate complex messages instantly.',
     practicalActivities: [
@@ -104,6 +128,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '5.8s',
     borderReverse: false,
     floatAnimation: 'floatSkill2 7.6s ease-in-out infinite 1.2s',
+    glyph: '≈ ⬡',
+    desktopOffset: {
+      yOffset: -10,
+      xOffset: 12,
+      zDepth: 10,
+      scale: 0.99,
+      baseTilt: -0.8,
+    },
     meaning:
       'Orchestrating end-to-end promotional campaigns, from initial concept brainstorms and audience persona definition to milestone scheduling, multi-format collateral rollouts, and launch execution.',
     practicalActivities: [
@@ -131,6 +163,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '4.9s',
     borderReverse: true,
     floatAnimation: 'floatSkill3 8.0s ease-in-out infinite 0.4s',
+    glyph: '= ◬',
+    desktopOffset: {
+      yOffset: -22,
+      xOffset: -10,
+      zDepth: 18,
+      scale: 1.02,
+      baseTilt: 1.1,
+    },
     meaning:
       'Transforming raw website traffic and campaign interaction metrics into clear, actionable business insights that guide budget allocation and performance improvements.',
     practicalActivities: [
@@ -158,6 +198,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '6.0s',
     borderReverse: false,
     floatAnimation: 'floatSkill4 7.8s ease-in-out infinite 1.6s',
+    glyph: '+ ◎',
+    desktopOffset: {
+      yOffset: 12,
+      xOffset: -12,
+      zDepth: 8,
+      scale: 0.98,
+      baseTilt: 1.4,
+    },
     meaning:
       'Conducting search intent analysis and on-page optimization to position website pages and business listings at the top of search engine results for high-value organic queries.',
     practicalActivities: [
@@ -172,7 +220,7 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
   },
   {
     id: 'communication-strategy',
-    name: 'Communication & Strategy',
+    name: 'Communication',
     category: 'LEADERSHIP',
     categoryLabel: 'Strategic Leadership & Alignment',
     iconName: 'Compass',
@@ -185,6 +233,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '5.5s',
     borderReverse: true,
     floatAnimation: 'floatSkill5 8.6s ease-in-out infinite 0.8s',
+    glyph: '* ⬢',
+    desktopOffset: {
+      yOffset: 4,
+      xOffset: 6,
+      zDepth: 26,
+      scale: 1.05,
+      baseTilt: -1.6,
+    },
     meaning:
       'Bridging technical capabilities with business objectives through articulate client consultations, stakeholder pitches, collaborative feedback loops, and cross-team alignment.',
     practicalActivities: [
@@ -212,6 +268,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '5.0s',
     borderReverse: false,
     floatAnimation: 'floatSkill6 6.8s ease-in-out infinite 1.4s',
+    glyph: '~ ◈',
+    desktopOffset: {
+      yOffset: 18,
+      xOffset: -8,
+      zDepth: 16,
+      scale: 1.02,
+      baseTilt: 1.2,
+    },
     meaning:
       'Crafting dynamic, retention-optimized short-form video reels and promotional videos with deliberate visual pacing, seamless transitions, kinetic subtitles, and professional audio balancing.',
     practicalActivities: [
@@ -239,6 +303,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '6.2s',
     borderReverse: true,
     floatAnimation: 'floatSkill7 7.4s ease-in-out infinite 0.3s',
+    glyph: '= ⬡',
+    desktopOffset: {
+      yOffset: 8,
+      xOffset: 10,
+      zDepth: 20,
+      scale: 1.03,
+      baseTilt: -1.0,
+    },
     meaning:
       'Harnessing prompt engineering and cutting-edge generative AI design tools to rapidly produce custom visual assets, conceptual marketing posters, and iterative campaign variations.',
     practicalActivities: [
@@ -266,6 +338,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '5.6s',
     borderReverse: false,
     floatAnimation: 'floatSkill8 8.2s ease-in-out infinite 1.1s',
+    glyph: '≡ ◬',
+    desktopOffset: {
+      yOffset: 24,
+      xOffset: 10,
+      zDepth: 12,
+      scale: 0.98,
+      baseTilt: -1.4,
+    },
     meaning:
       'Writing structured, informative, and search-optimized blog articles that answer audience inquiries, build industry authority, and nurture readers along the buyer journey.',
     practicalActivities: [
@@ -293,6 +373,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '6.6s',
     borderReverse: true,
     floatAnimation: 'floatSkill9 7.9s ease-in-out infinite 0.7s',
+    glyph: '+ ⬢',
+    desktopOffset: {
+      yOffset: 36,
+      xOffset: -10,
+      zDepth: 18,
+      scale: 1.01,
+      baseTilt: 1.3,
+    },
     meaning:
       'Managing task flows, synchronizing deliverables between copywriters, designers, and video editors, and keeping complex creative projects strictly on schedule.',
     practicalActivities: [
@@ -320,6 +408,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '5.4s',
     borderReverse: false,
     floatAnimation: 'floatSkill10 8.8s ease-in-out infinite 1.5s',
+    glyph: '≈ ◇',
+    desktopOffset: {
+      yOffset: 28,
+      xOffset: 6,
+      zDepth: 24,
+      scale: 1.03,
+      baseTilt: -1.5,
+    },
     meaning:
       'Nurturing transparent, dependable client partnerships by proactively communicating campaign progress, setting realistic expectations, and addressing feedback with speed.',
     practicalActivities: [
@@ -347,6 +443,14 @@ export const ALL_PERSONAL_SKILLS: DetailedSkill[] = [
     borderDuration: '6.1s',
     borderReverse: true,
     floatAnimation: 'floatSkill11 8.5s ease-in-out infinite 0.9s',
+    glyph: '* ○',
+    desktopOffset: {
+      yOffset: 40,
+      xOffset: -8,
+      zDepth: 14,
+      scale: 1.0,
+      baseTilt: 1.0,
+    },
     meaning:
       'Understanding foundational cloud computing architecture, storage accounts, virtual machines, and cloud service deployments to support robust, scalable web applications.',
     practicalActivities: [
