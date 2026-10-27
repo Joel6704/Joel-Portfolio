@@ -17,6 +17,8 @@ const PARTICLE_PALETTE = [
   { color: '#818CF8', glow: 'rgba(129, 140, 248, 0.5)' }, // Soft Indigo
   { color: '#A855F7', glow: 'rgba(168, 85, 247, 0.6)' }, // Neon Purple
   { color: '#C084FC', glow: 'rgba(192, 132, 252, 0.5)' }, // Light Violet
+  { color: '#34D399', glow: 'rgba(52, 211, 153, 0.5)' }, // Neon Mint
+  { color: '#FB7185', glow: 'rgba(251, 113, 133, 0.5)' }, // Cyber Rose
 ];
 
 interface ProjectsCanvasProps {

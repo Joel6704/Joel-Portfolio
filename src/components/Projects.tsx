@@ -109,7 +109,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
           </div>
         </motion.div>
 
-        {/* ── Grid Layout: EXACTLY 4 Cards in 1 Row on Desktop ── */}
+        {/* ── Responsive Project Grid: Row 1 (4 Blocks), Row 2 (Blocks 5 & 6 Centered) ── */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -123,6 +123,11 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelectProject }) => {
               project={project}
               index={idx}
               onSelectProject={onSelectProject}
+              className={
+                idx === 4
+                  ? 'lg:col-start-2'
+                  : ''
+              }
             />
           ))}
         </motion.div>

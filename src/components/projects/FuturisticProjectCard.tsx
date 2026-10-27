@@ -7,6 +7,7 @@ interface FuturisticProjectCardProps {
   project: Project;
   index: number;
   onSelectProject?: (project: Project) => void;
+  className?: string;
 }
 
 interface ThemeConfig {
@@ -90,12 +91,45 @@ const CARD_THEMES: ThemeConfig[] = [
     btnHoverGlow: '0 0 25px rgba(129, 140, 248, 0.5)',
     codePrefix: 'INDG-04',
   },
+  // 5. Cyber Emerald & Neon Mint (WhatNext Blogs)
+  {
+    accent: '#34D399',
+    accentSecondary: '#059669',
+    glow: 'rgba(52, 211, 153, 0.28)',
+    glowBorder: 'rgba(52, 211, 153, 0.75)',
+    borderDefault: 'rgba(52, 211, 153, 0.25)',
+    badgeBg: 'rgba(52, 211, 153, 0.1)',
+    badgeText: '#A7F3D0',
+    tagBg: 'rgba(5, 150, 105, 0.12)',
+    tagBorder: 'rgba(52, 211, 153, 0.25)',
+    tagText: '#A7F3D0',
+    btnGradient: 'from-[#34D399]/90 via-[#059669] to-[#047857]',
+    btnHoverGlow: '0 0 25px rgba(52, 211, 153, 0.5)',
+    codePrefix: 'WNEXT-05',
+  },
+  // 6. Electric Coral & Cyber Rose (Whatnext Blogs)
+  {
+    accent: '#FB7185',
+    accentSecondary: '#E11D48',
+    glow: 'rgba(251, 113, 133, 0.28)',
+    glowBorder: 'rgba(251, 113, 133, 0.75)',
+    borderDefault: 'rgba(251, 113, 133, 0.25)',
+    badgeBg: 'rgba(251, 113, 133, 0.1)',
+    badgeText: '#FECDD3',
+    tagBg: 'rgba(225, 29, 72, 0.12)',
+    tagBorder: 'rgba(251, 113, 133, 0.25)',
+    tagText: '#FECDD3',
+    btnGradient: 'from-[#FB7185]/90 via-[#E11D48] to-[#BE123C]',
+    btnHoverGlow: '0 0 25px rgba(251, 113, 133, 0.5)',
+    codePrefix: 'BLOG-06',
+  },
 ];
 
 export const FuturisticProjectCard: React.FC<FuturisticProjectCardProps> = ({
   project,
   index,
   onSelectProject,
+  className = '',
 }) => {
   const cardRef = useRef<HTMLDivElement | null>(null);
   const theme = CARD_THEMES[index % CARD_THEMES.length];
@@ -162,7 +196,7 @@ export const FuturisticProjectCard: React.FC<FuturisticProjectCardProps> = ({
           },
         },
       }}
-      className="h-full flex flex-col"
+      className={`h-full flex flex-col ${className}`}
     >
       <div
         ref={cardRef}
@@ -241,28 +275,58 @@ export const FuturisticProjectCard: React.FC<FuturisticProjectCardProps> = ({
           />
 
           {/* Floating Category Pill with Neon LED Indicator */}
-          <div className="absolute top-3 left-3 z-10">
-            <span
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-heading text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase backdrop-blur-md border shadow-md"
-              style={{
-                backgroundColor: 'rgba(3, 8, 24, 0.85)',
-                borderColor: theme.borderDefault,
-                color: theme.accent,
-              }}
-            >
-              <span
-                className="w-1.5 h-1.5 rounded-full animate-ping"
-                style={{ backgroundColor: theme.accent }}
-              />
-              <span
-                className="w-1.5 h-1.5 rounded-full -ml-3"
+          <div className="absolute top-3 left-3 z-10 max-w-[calc(100%-3.5rem)]">
+            {project.categoryLink ? (
+              <a
+                href={project.categoryLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                title={project.category.split('•')[0].trim()}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-heading text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase backdrop-blur-md border shadow-md transition-all duration-300 hover:brightness-125 max-w-full"
                 style={{
-                  backgroundColor: theme.accent,
-                  boxShadow: `0 0 8px ${theme.accent}`,
+                  backgroundColor: 'rgba(3, 8, 24, 0.85)',
+                  borderColor: theme.borderDefault,
+                  color: theme.accent,
                 }}
-              />
-              {project.category.split('•')[0].trim()}
-            </span>
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full animate-ping shrink-0"
+                  style={{ backgroundColor: theme.accent }}
+                />
+                <span
+                  className="w-1.5 h-1.5 rounded-full -ml-3 shrink-0"
+                  style={{
+                    backgroundColor: theme.accent,
+                    boxShadow: `0 0 8px ${theme.accent}`,
+                  }}
+                />
+                <span className="truncate">{project.category.split('•')[0].trim()}</span>
+              </a>
+            ) : (
+              <span
+                title={project.category.split('•')[0].trim()}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full font-heading text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase backdrop-blur-md border shadow-md max-w-full"
+                style={{
+                  backgroundColor: 'rgba(3, 8, 24, 0.85)',
+                  borderColor: theme.borderDefault,
+                  color: theme.accent,
+                }}
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full animate-ping shrink-0"
+                  style={{ backgroundColor: theme.accent }}
+                />
+                <span
+                  className="w-1.5 h-1.5 rounded-full -ml-3 shrink-0"
+                  style={{
+                    backgroundColor: theme.accent,
+                    boxShadow: `0 0 8px ${theme.accent}`,
+                  }}
+                />
+                <span className="truncate">{project.category.split('•')[0].trim()}</span>
+              </span>
+            )}
           </div>
 
           {/* Floating External Link Icon */}

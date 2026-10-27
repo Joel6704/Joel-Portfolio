@@ -2,6 +2,7 @@ export interface Project {
   id: string;
   title: string;
   category: string;
+  categoryLink?: string;
   categoryLabel: string;
   tagline: string;
   overview: string;
@@ -13,6 +14,7 @@ export interface Project {
   badge?: string;
   assetType: 'carousel' | 'campaign' | 'seo' | 'leads' | 'instagram' | 'pdf' | string;
   imageUrl?: string;
+  pdfUrl?: string;
   externalLink?: {
     url: string;
     label: string;

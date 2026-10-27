@@ -62,12 +62,26 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         >
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span
-                className="font-heading text-[10px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded"
-                style={{ color: '#38BDF8', border: '1px solid rgba(0, 102, 255, 0.4)', background: 'rgba(0, 102, 255, 0.1)' }}
-              >
-                {project.categoryLabel}
-              </span>
+              {project.categoryLink ? (
+                <a
+                  href={project.categoryLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-heading text-[10px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded inline-flex items-center gap-1 hover:underline"
+                  style={{ color: '#38BDF8', border: '1px solid rgba(0, 102, 255, 0.4)', background: 'rgba(0, 102, 255, 0.1)' }}
+                  title="Open company LinkedIn"
+                >
+                  {project.categoryLabel}
+                  <ExternalLink size={10} />
+                </a>
+              ) : (
+                <span
+                  className="font-heading text-[10px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded"
+                  style={{ color: '#38BDF8', border: '1px solid rgba(0, 102, 255, 0.4)', background: 'rgba(0, 102, 255, 0.1)' }}
+                >
+                  {project.categoryLabel}
+                </span>
+              )}
               {project.badge && (
                 <span
                   className="font-body text-[11px] text-[#94A3B8] px-2.5 py-1 rounded"
@@ -111,7 +125,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                   <span className="w-2 h-2 rounded-full bg-[#38BDF8]" />
                   <span className="w-2 h-2 rounded-full bg-[#172554]" />
                   <span className="font-heading text-[10px] tracking-wider uppercase text-[#94A3B8] ml-2">
-                    Visual Showcase • Instagram Feed
+                    Visual Showcase • {project.mockupDetails?.metricsValue || 'Deliverable Preview'}
                   </span>
                 </div>
                 {project.externalLink && (
@@ -121,7 +135,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                     rel="noopener noreferrer"
                     className="font-heading text-[10px] tracking-wider uppercase text-[#38BDF8] hover:text-white transition-colors inline-flex items-center gap-1"
                   >
-                    Open Live Profile <ExternalLink size={11} />
+                    {project.externalLink.label || 'Open Live Project'} <ExternalLink size={11} />
                   </a>
                 )}
               </div>
@@ -297,6 +311,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
               >
                 <ExternalLink size={13} />
                 {project.externalLink.label}
+              </a>
+            )}
+            {project.pdfUrl && (
+              <a
+                href={project.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 font-heading text-[11px] font-semibold tracking-[0.12em] uppercase rounded-lg border border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-300 hover:text-white transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+              >
+                <ExternalLink size={13} />
+                Open PDF Directly
               </a>
             )}
             <a

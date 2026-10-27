@@ -386,8 +386,110 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    id: 'whatnext-overseas-education',
+    title: 'What Next Overseas Education Consultancy Service',
+    category: 'What Next Overseas Education Consultancy Service',
+    categoryLink: 'https://in.linkedin.com/company/what-next-overseas-education-consultancy-service',
+    categoryLabel: 'PROJECT 05 · What Next Overseas Education Consultancy Service',
+    tagline: 'What Next – Overseas Education Consultancy Service & Student Career Guidance',
+    overview:
+      'A comprehensive educational and career guidance presentation deck developed for What Next Overseas Education Consultancy Service (Bengaluru). Features strategic planning, overseas education insights, university selection pathways, success mindsets, and decision frameworks designed to empower students and aspirants navigating international education.',
+    objective:
+      'Empower students and study abroad aspirants with clear global educational pathways, actionable guidance, and university preparation frameworks through an engaging digital presentation.',
+    role: 'Content Creator, Educational Strategist & Presentation Designer',
+    strategy: [
+      'Overseas Education Planning',
+      'Global University Pathways',
+      'Success Mindsets & Discipline',
+      'Student Motivation & Clarity',
+      'Branded Presentation Layouts',
+      'Digital Document Publishing',
+    ],
+    deliverables: [
+      'Curated 22-page comprehensive overseas education & guidance deck',
+      'Core frameworks: Persistence, Hard Work, Discipline, and Global Readiness',
+      'Quotes and insights from global thought leaders adapted for students',
+      'Custom branded layout, structured typography, and slide deck',
+      'Multi-channel digital publication and shareable presentation resource',
+    ],
+    outcome:
+      'Authored and delivered a comprehensive 22-page educational and strategic guidance presentation for What Next Overseas Education Consultancy Service, supporting student counseling and global study preparation.',
+    badge: 'What Next Overseas Education',
+    assetType: 'pdf',
+    imageUrl: '/whatnext-consultancy.png',
+    pdfUrl: '/blogs/whatnext-blogs.pdf',
+    externalLink: {
+      url: 'https://drive.google.com/file/d/1NM5_cBoGqSWUyBH4NJg7J6pVqh1X6U8I/view?usp=drive_link',
+      label: 'VIEW MORE',
+    },
+    mockupDetails: {
+      accentColor: '#10B981',
+      metricsLabel: 'Format',
+      metricsValue: 'Overseas Education Deck',
+      sublabel: 'What Next Overseas Education Consultancy Service',
+      highlights: [
+        '22-Page Guidance Deck',
+        'Study Abroad Pathways',
+        'Success Mindset Framework',
+        'Branded Slide Typography',
+        'Student Advisory Materials',
+        'Digital Publication (PDF)',
+      ],
+    },
+  },
+  {
+    id: 'whatnext-blogs',
+    title: 'Whatnext Blogs',
+    category: 'WhatNext – Overseas Study & Student Life Blogs',
+    categoryLabel: 'PROJECT 06 · Educational Blogs',
+    tagline: 'WhatNext – Overseas Study Planning, Student Life & Career Guidance Publication',
+    overview:
+      'A curated 37-page comprehensive educational blog publication created for WhatNext Overseas Education Consultancy. Authored by Dr. Kalyani Yalamanchi (PhD, Founder & CEO), this series covers essential study abroad insights including overcoming homesickness, avoiding critical planning mistakes, application timelines, scholarship strategies, and international employability.',
+    objective:
+      'Provide international students and study abroad aspirants with authentic, actionable advice on overcoming cultural adjustments, mastering university applications, and building global career readiness.',
+    role: 'Content Publisher, Blog Strategist & Publication Designer',
+    strategy: [
+      'Student Life & Homesickness Guide',
+      'Common Study Abroad Pitfalls',
+      'Application Timelines & Intakes',
+      'Scholarship & Financial Strategy',
+      'Global Employability & O-1 Visa',
+      'International Student LinkedIn Guide',
+    ],
+    deliverables: [
+      '37-page educational blog and student guide collection',
+      'Comprehensive articles on overcoming homesickness and cultural adjustment',
+      'Practical strategies for application timing, test preparation, and scholarships',
+      'Insights on graduate employability vs degree selection by Dr. Kalyani Yalamanchi',
+      'Digital publication and shareable PDF guide for global education aspirants',
+    ],
+    outcome:
+      'Successfully produced and released an extensive 37-page student advisory publication, educating students on international education realities and enhancing WhatNext\'s authoritative guidance.',
+    badge: 'WhatNext • Blogs',
+    assetType: 'pdf',
+    imageUrl: '/whatnext-blogs-cover.png',
+    pdfUrl: '/blogs/blogs-what-next.pdf',
+    externalLink: {
+      url: 'https://drive.google.com/file/d/1gsKgHFRDIHfAixptep0XGomOEi7uEMrC/view?usp=sharing',
+      label: 'VIEW MORE',
+    },
+    mockupDetails: {
+      accentColor: '#FB7185',
+      metricsLabel: 'Format',
+      metricsValue: '37-Page Blog Collection',
+      sublabel: 'WhatNext • Educational Blog Series',
+      highlights: [
+        '37-Page Blog Publication',
+        'Student Homesickness Guide',
+        'Study Abroad Pitfalls & Tips',
+        'Scholarships & Timeline Guide',
+        'Employability & LinkedIn Advice',
+        'Digital Publication (PDF)',
+      ],
+    },
+  },
 ];
-
 
 export const processSteps: ProcessStep[] = [
   {
